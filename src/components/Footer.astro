@@ -1,29 +1,183 @@
 ---
-import { brand, social, cadence } from "../config";
+import { brand, social, cadence, nav } from "../config";
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-line">
-  <div class="ds-section-inner-tight">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-      <div class="flex items-center gap-4">
-        <span class="ds-logo text-base">
-          {brand.shortName.toLowerCase()}
-        </span>
-        <span class="text-muted text-sm">
-          © {year} {brand.name} · {brand.city}
-        </span>
+<footer class="footer">
+  <div class="footer-inner">
+    {/* Top — big email */}
+    <div class="footer-top">
+      <a href={`mailto:${social.email}`} class="footer-email">
+        <span class="footer-email-mark" aria-hidden="true">+</span>
+        {social.email}
+      </a>
+    </div>
+
+    {/* Columns — navigation + social */}
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4 class="footer-col-title">Navegación</h4>
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          {nav.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
       </div>
 
-      <nav class="flex items-center gap-6 text-sm">
-        <a href={cadence.url} target="_blank" rel="noopener" class="ds-link">
-          cadence ↗
-        </a>
-        <a href={social.instagram} target="_blank" rel="noopener" class="ds-link">
-          instagram ↗
-        </a>
-        <a href={`mailto:${social.email}`} class="ds-link">email</a>
-      </nav>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Social</h4>
+        <ul>
+          <li>
+            <a href={social.instagram} target="_blank" rel="noopener">
+              Instagram <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href={cadence.url} target="_blank" rel="noopener">
+              Cadence <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${social.email}`}>Email</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Big wordmark */}
+    <div class="footer-mark" aria-hidden="true">
+      pulsar
+      <span class="footer-mark-sub">studio</span>
+    </div>
+
+    {/* Meta — © + city */}
+    <div class="footer-meta">
+      <p>© {year} {brand.name}</p>
+      <p>{brand.city} · España</p>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer {
+    background: #f0f0f0;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .footer-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 4vw, 4rem) 0;
+  }
+
+  /* ─── Top — email ─────────────────────────────────────── */
+  .footer-top {
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .footer-email {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(24px, 3.5vw, 48px);
+    letter-spacing: -0.02em;
+    color: #0a0a0a;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 8px;
+    transition: color 0.2s ease;
+  }
+
+  .footer-email:hover {
+    color: #7a7a7a;
+  }
+
+  .footer-email-mark {
+    font-size: 0.6em;
+    text-decoration: none;
+  }
+
+  /* ─── Columns ─────────────────────────────────────────── */
+  .footer-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .footer-col-title {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #7a7a7a;
+    margin: 0 0 1rem 0;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-col li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-col a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: clamp(15px, 1.3vw, 18px);
+    font-weight: 500;
+    color: #0a0a0a;
+    transition: color 0.2s ease;
+  }
+
+  .footer-col a:hover {
+    color: #7a7a7a;
+  }
+
+  /* ─── Big wordmark ────────────────────────────────────── */
+  .footer-mark {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(80px, 22vw, 320px);
+    letter-spacing: -0.06em;
+    line-height: 0.85;
+    color: #0a0a0a;
+    text-transform: lowercase;
+    user-select: none;
+    margin-bottom: 1rem;
+  }
+
+  .footer-mark-sub {
+    font-weight: 700;
+    font-size: 0.32em;
+    letter-spacing: -0.04em;
+    margin-left: 0.15em;
+  }
+
+  /* ─── Meta ────────────────────────────────────────────── */
+  .footer-meta {
+    border-top: 1px solid #e5e5e5;
+    padding: 1.5rem 0 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #7a7a7a;
+  }
+
+  .footer-meta p {
+    margin: 0;
+  }
+</style>

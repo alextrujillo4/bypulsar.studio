@@ -1,37 +1,267 @@
 ---
-import { team } from "../config";
+import { team, social } from "../config";
 ---
 
-<section id="studio" class="ds-section">
-  <div class="ds-section-inner">
-    <p class="ds-label mb-12">estudio.</p>
+<section id="studio" class="ds-section-card-wrap">
+  <div class="ds-white-card">
+    <div class="ds-white-card-inner studio-grid">
+      {/* LEFT — eyebrow, title, mission, CTA */}
+      <div class="studio-text">
+        <p class="studio-eyebrow">
+          <span class="studio-eyebrow-mark" aria-hidden="true">+</span>
+          el equipo
+        </p>
 
-    <h2 class="ds-heading-section max-w-5xl mb-20">
-      somos dos.
-      <br />
-      una constructora
-      <br />
-      <span class="ds-italic">y una directora creativa.</span>
-    </h2>
+        <h2 class="studio-title">
+          <span class="studio-title-bright">somos dos.</span>{" "}
+          <span class="studio-title-fade">una constructora y una directora creativa detrás de cada proyecto.</span>
+        </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-      {team.map((member) => (
-        <article class="ds-card-hover group">
-          <div class="aspect-square mb-8 rounded-2xl bg-bg border border-line flex items-center justify-center overflow-hidden">
-            {/* TODO: replace with real photo of {member.name} */}
-            <span
-              class="font-display font-extrabold text-[clamp(64px,10vw,140px)] tracking-tightest text-muted group-hover:text-fg transition-colors duration-500"
-            >
+        <div class="studio-plus-row" aria-hidden="true">
+          <span class="ds-plus studio-plus-mark">+</span>
+          <span class="ds-plus studio-plus-mark">+</span>
+        </div>
+
+        <div class="studio-mission">
+          <p class="studio-mission-title">Trabajemos juntos</p>
+          <p class="studio-mission-body">
+            Si tu marca wellness está lista para crecer, hablemos. Pequeño equipo, total dedicación.
+          </p>
+          <a href={social.calendly} target="_blank" rel="noopener" class="studio-cta">
+            Discovery call
+            <span class="studio-cta-dot" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+
+      {/* RIGHT — team cards */}
+      <div class="studio-team">
+        {team.map((member) => (
+          <article class="team-card">
+            <span class="team-card-plus" aria-hidden="true">+</span>
+            <div class="team-card-meta">
+              <p>{member.role}</p>
+              <p class="team-card-meta-sub">at pulsar</p>
+            </div>
+            <div class="team-card-watermark" aria-hidden="true">
               {member.initials}
-            </span>
-          </div>
-          <p class="ds-label mb-3">{member.role}</p>
-          <h3 class="ds-heading-sub mb-4">
-            {member.name}
-          </h3>
-          <p class="text-muted leading-relaxed">{member.bio}</p>
-        </article>
-      ))}
+            </div>
+            <h3 class="team-card-name">{member.name}</h3>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* ─── Grid ───────────────────────────────────────────── */
+  .studio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .studio-grid {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 3rem;
+      align-items: stretch;
+    }
+  }
+
+  /* ─── LEFT column ─────────────────────────────────────── */
+  .studio-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .studio-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #0a0a0a;
+    margin: 0 0 2rem 0;
+  }
+
+  .studio-eyebrow-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #0a0a0a;
+    color: #f5f5f5;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .studio-title {
+    margin: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(40px, 5.5vw, 88px);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .studio-title-bright {
+    color: #0a0a0a;
+  }
+
+  .studio-title-fade {
+    color: #7a7a7a;
+  }
+
+  .studio-plus-row {
+    display: flex;
+    gap: clamp(2rem, 6vw, 6rem);
+    margin: 3rem 0 4rem 0;
+  }
+
+  .studio-plus-mark {
+    color: rgba(10, 10, 10, 0.25);
+  }
+
+  .studio-mission {
+    margin-top: auto;
+    max-width: 28rem;
+  }
+
+  .studio-mission-title {
+    font-weight: 700;
+    font-size: clamp(16px, 1.4vw, 19px);
+    color: #0a0a0a;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .studio-mission-body {
+    color: #7a7a7a;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0 0 1.5rem 0;
+    max-width: 24rem;
+  }
+
+  .studio-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #0a0a0a;
+    color: #f5f5f5;
+    border-radius: 999px;
+    padding: 0.7rem 0.7rem 0.7rem 1.25rem;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+
+  .studio-cta:hover {
+    background: #1f1f1f;
+  }
+
+  .studio-cta-dot {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #f5f5f5;
+  }
+
+  /* ─── RIGHT column — team cards ───────────────────────── */
+  .studio-team {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .studio-team {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .team-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2a2a2a 0%, #0a0a0a 100%);
+    border-radius: clamp(18px, 2vw, 24px);
+    aspect-ratio: 3 / 4;
+    color: #f5f5f5;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .team-card-plus {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    color: #0a0a0a;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .team-card-meta {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    text-align: right;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .team-card-meta p {
+    margin: 0;
+  }
+
+  .team-card-meta-sub {
+    color: rgba(245, 245, 245, 0.6);
+    font-weight: 400;
+  }
+
+  .team-card-watermark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(72px, 12vw, 180px);
+    letter-spacing: -0.06em;
+    color: rgba(245, 245, 245, 0.12);
+    pointer-events: none;
+  }
+
+  .team-card-name {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 2.4vw, 32px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: #f5f5f5;
+  }
+</style>

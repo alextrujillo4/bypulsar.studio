@@ -184,15 +184,16 @@
     color: rgba(245, 245, 245, 0.35);
   }
 
-  /* ─── Ink card section ─────────────────────────────────────── */
+  /* ─── Rounded card sections (ink + white) ──────────────────── */
 
-  /* Wrapper that puts a rounded dark "card" inside a light page section.
-     Tight outer margins (Fabrica style — almost edge-to-edge). All four
-     sides use the same scale so the light "frame" feels uniform. */
-  .ds-section-ink-wrap {
+  /* Wrapper: tight outer margins so the rounded card floats almost
+     edge-to-edge against the page bg (Fabrica style). Surface-agnostic
+     — used by both ds-ink-card and ds-white-card. */
+  .ds-section-card-wrap {
     @apply p-2 md:p-3 lg:p-4;
   }
 
+  /* DARK card (hero, services) */
   .ds-ink-card {
     @apply relative overflow-hidden text-ink-fg;
     background-color: theme("colors.ink.DEFAULT");
@@ -203,8 +204,6 @@
     border-radius: clamp(20px, 3vw, 40px);
   }
 
-  /* Grain overlay — applied via ::before to keep markup clean.
-     Opacity tuned to be subtle but present on dark. */
   .ds-ink-card::before {
     content: "";
     position: absolute;
@@ -216,6 +215,18 @@
   }
 
   .ds-ink-card-inner {
+    @apply relative;
+    padding: clamp(2rem, 5vw, 5rem);
+  }
+
+  /* WHITE card (studio team, future light-card sections) */
+  .ds-white-card {
+    @apply relative overflow-hidden text-fg;
+    background-color: #ffffff;
+    border-radius: clamp(20px, 3vw, 40px);
+  }
+
+  .ds-white-card-inner {
     @apply relative;
     padding: clamp(2rem, 5vw, 5rem);
   }

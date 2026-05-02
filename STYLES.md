@@ -196,27 +196,36 @@ Definidas en `tailwind.config.mjs`, `src/styles/globals.css`, `IntroOverlay.astr
 |---|---|
 | `ds-plus` | Marcadores `+` decorativos del grid (Fabrica-style) |
 
-### Ink card section (rounded dark block en página clara)
+### Rounded card sections (ink + white)
+
+Patrón Fabrica: el contenido vive en una **rounded card** que flota sobre el bg light. La card puede ser oscura (hero, services) o blanca (studio).
 
 | Clase | Uso |
 |---|---|
-| `ds-section-ink-wrap` | Wrapper de la sección con padding lateral pequeño (deja ver el bg light) |
-| `ds-ink-card` | Card oscura con `border-radius` grande, gradiente sutil + grain (pseudo `::before`) y color de texto adaptado a dark |
-| `ds-ink-card-inner` | Padding interno generoso de la card |
+| `ds-section-card-wrap` | Wrapper outer — padding uniforme `p-2 md:p-3 lg:p-4` (8/12/16px en los 4 lados) para que la card vaya casi edge-to-edge |
+| `ds-ink-card` | Card OSCURA con `border-radius` grande, gradientes radiales + grain (pseudo `::before`), color de texto adaptado a dark |
+| `ds-ink-card-inner` | Padding interno generoso `clamp(2rem, 5vw, 5rem)` |
+| `ds-white-card` | Card BLANCA con mismo `border-radius`, sin grain (limpia) |
+| `ds-white-card-inner` | Mismo padding interno que ink-card-inner |
 
-**Patrón de ritmo de página (alternancia black ↔ white):**
+**Patrón de ritmo de página (alternancia ink ↔ white card ↔ light bg):**
 
 ```
-Header        (sticky, translucent light, dark text)         ← light
-Hero          (ds-section-ink-wrap > rounded card + foto)    ← dark, rounded card
-Studio        (ds-section, light)                            ← light
-Services      (ds-section-ink-wrap > ds-ink-card)            ← dark, rounded card
-Approach      (ds-section, light)                            ← light
-Contact       (ds-section, light)                            ← light  (puede pasar a ink-card si se necesita más ritmo)
-Footer        (border-t, light)                              ← light
+Header        (sticky, translucent light, dark text)         ← light bg
+Hero          (ds-section-card-wrap > rounded ink + foto)    ← INK card
+Studio        (ds-section-card-wrap > ds-white-card)         ← WHITE card
+Services      (ds-section-card-wrap > ds-ink-card)           ← INK card
+Approach      (ds-section, light bg)                         ← light bg (no card)
+Contact       (ds-section, light bg)                         ← light bg (no card)
+Footer        (light bg, full width, big wordmark)           ← light bg
 ```
 
-**Hero específico:** no usa la clase `ds-ink-card` directamente porque tiene su propia capa de foto + overlay; replica la signature visual (rounded corners + grain) en su scope. Si en el futuro hay otra sección dark con foto, considerar promover esto a `ds-ink-card-photo` u otra variante.
+**Reglas:**
+- Las **cards** (ink o white) son bloques destacados de contenido. Hero, Studio y Services las usan.
+- Las **secciones planas** (`ds-section` + `ds-section-inner`) son texto-only, sin card. Approach y Contact las usan.
+- El footer es plano (sin card) con un wordmark gigante al final.
+
+**Hero específico:** no usa la clase `ds-ink-card` directamente porque tiene su propia capa de foto + overlay; replica la signature visual (rounded corners + grain) en su scope. Si en el futuro hay otra sección dark con foto, considerar promover esto a `ds-ink-card-photo`.
 
 El bloque de Services usa `<details>`/`<summary>` nativos para el acordeón (primera entrada `open` por defecto, sin JS). Los toggles `+/−` están construidos con `::before`/`::after` pseudo-elementos que rotan al cambiar el atributo `[open]`.
 
