@@ -3,228 +3,258 @@
 > Documento interno. Referencia para tokens, clases y composición visual.
 > Última actualización: mayo 2026
 
-Este archivo cubre **todo lo visual**: tokens, clases del design system, patrones de composición, y reglas de cuándo usar `ds-*` vs Tailwind raw vs CSS custom. Para arquitectura, stack y operativa, ver [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+Sistema visual completo. Para arquitectura, stack y operativa, ver [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 
 ---
 
 ## 1 — Filosofía
 
-**Centralizado, no atomizado.** Todo lo visual repetible vive como clase `ds-*` en `src/styles/ds.css`. Los componentes Astro componen esas clases, no apilan utilidades Tailwind.
+**Inspiración visual:** [Fabrica template](https://fabrica.framer.media/) — wordmark lowercase + ®, hero oscuro con foto, resto del sitio en off-white claro, tipografía gigante con punto final ("projects.", "studio."), bordes muy redondeados (`rounded-3xl`), sin acentos de color.
+
+**Centralizado, no atomizado.** Todo lo visual repetible vive como clase `ds-*` en `src/styles/ds.css`. Los componentes Astro componen esas clases.
 
 **Tres niveles, en orden de preferencia:**
 
-1. **`ds-*`** — clases de sistema (botón primario, sección, label). Primera elección.
-2. **Tailwind utility** — para variaciones puntuales (`mt-12`, `max-w-2xl`, layout específico).
-3. **CSS custom** en `<style>` del componente — solo si Tailwind no llega y la regla es local.
+1. **`ds-*`** — clases de sistema. Primera elección.
+2. **Tailwind utility** — para variaciones puntuales (`mt-12`, `max-w-2xl`).
+3. **CSS custom** en `<style>` del componente — solo si Tailwind no llega.
 
 **Regla del 2:** si una combinación Tailwind aparece **2 veces**, se promueve a `ds-*`.
 
-**Inspiración visual:** [Fabrica Framer template](https://fabrica.framer.media/) — monocromo bold, tipografía display grande, grid estructurado.
+---
+
+## 2 — Sistema de dos superficies
+
+El sitio tiene **dos superficies**:
+
+- **Light (default)** — fondo off-white `#F0F0F0`, texto negro. Usado en body y todas las secciones excepto el hero.
+- **Dark / "ink"** — fondo casi negro `#0A0A0A`, texto claro. Usado SOLO en el hero (con foto de fondo) y, en el futuro, en CTA blocks oscuros si se añaden.
+
+**Cómo se aplica:**
+
+- Body por defecto es light. No hace falta escribir nada.
+- Para hacer una sección dark, añade la clase **`ds-ink`** al elemento `<section>`. Las clases `ds-*` hijas que dependen del color (label, body, link, border) se adaptan automáticamente.
+- Algunos componentes tienen variantes explícitas `*-dark` (`ds-btn-primary-dark`, `ds-btn-ghost-dark`, `ds-btn-pill-dark`, `ds-card-dark`) cuando un componente concreto en una superficie dark necesita estilos distintos al adaptativo.
 
 ---
 
-## 2 — Tokens
+## 3 — Tokens de color
 
-Definidos en `tailwind.config.mjs`. Disponibles como utilidades Tailwind (`bg-bg`, `text-fg`, etc.).
+Definidos en `tailwind.config.mjs`.
 
-### Color (monocromo)
+### Light surface
 
 | Token | Hex | Uso |
 |---|---|---|
-| `bg` | `#0A0A0A` | Fondo global |
-| `fg` | `#F5F5F5` | Texto principal |
+| `bg` | `#F0F0F0` | Fondo body / secciones light |
+| `fg` | `#0A0A0A` | Texto principal |
 | `muted` | `#7A7A7A` | Texto secundario, captions |
-| `line` | `#1F1F1F` | Bordes, separadores |
-| `card` | `#141414` | Fondo de cards |
+| `line` | `#E5E5E5` | Bordes, separadores |
+| `card` | `#FFFFFF` | Cards blancas sobre off-white |
 
-**Sin acento de color en v1.** El contraste blanco/negro es la fuerza. Si en el futuro se añade un único acento, va aquí como `accent`.
+### Dark surface ("ink")
 
-### Tipografía
+| Token | Hex | Uso |
+|---|---|---|
+| `ink` (DEFAULT) | `#0A0A0A` | Fondo del hero / bloques dark |
+| `ink-fg` | `#F5F5F5` | Texto sobre dark |
+| `ink-muted` | `#9A9A9A` | Texto secundario sobre dark |
+| `ink-line` | `#1F1F1F` | Bordes sobre dark |
+| `ink-card` | `#141414` | Cards oscuras sobre dark |
+
+**Sin acento de color.** El contraste dual (luz+oscuro) es la fuerza.
+
+---
+
+## 4 — Tipografía
 
 | Familia | Uso |
 |---|---|
 | `Inter` (Google Fonts, 400–900) | Display + body — `font-sans` y `font-display` |
 | `IBM Plex Sans` (Google Fonts, 400–600) | Labels uppercase — `font-mono` |
 
-**Escala display:**
-- Hero: `clamp(56px, 11vw, 160px)` → clase `ds-heading-hero`
-- Sección H2: `clamp(40px, 6vw, 80px)` → clase `ds-heading-section`
-- Contact H2 (más grande): `clamp(48px, 9vw, 140px)` → clase `ds-heading-contact`
+### Escala
 
-**Tracking:** `tracking-tightest` (`-0.04em`) en displays. `tracking-[0.2em]` en labels uppercase.
-
-### Border radius
-
-| Token | Valor | Uso |
+| Clase | Tamaño | Uso |
 |---|---|---|
-| `rounded-2xl` | 16px | Cards |
-| `rounded-xl` | 12px | Imágenes |
-| `rounded-full` | pill | Buttons, inputs, banners |
-| `rounded-none` | 0 | Sections, containers grandes |
+| `ds-heading-mega` | `clamp(80px, 18vw, 280px)` | Wordmark hero "pulsar®" |
+| `ds-heading-section` | `clamp(56px, 12vw, 200px)` | Títulos de sección "studio.", "services." (lowercase + punto final) |
+| `ds-heading-sub` | `clamp(24px, 3vw, 36px)` | Nombres de cards, subtítulos |
+| `ds-body` | 16–18px | Cuerpo de texto |
+| `ds-label` | 12px uppercase tracked | Labels secundarios "studio.", "01" |
+| `ds-italic` | — | Variante itálica light para énfasis al cierre |
 
-### Espaciado vertical (secciones)
+**Convención lowercase:** títulos de sección (`ds-heading-section`) están **siempre en minúsculas con punto final** (`studio.`, `services.`, `approach.`, `contact.`). El wordmark también es lowercase (`pulsar®`).
 
-- Padding section vertical: `py-24` mobile / `py-40` desktop → encapsulado en `ds-section-inner`
-- Padding lateral container: `px-6` mobile / `px-10` md / `px-16` lg → encapsulado en `ds-container`
-- Max-width: `1440px` (`max-w-[1440px]`)
-
-### Animaciones
-
-Definidas globalmente en `tailwind.config.mjs` y `src/styles/globals.css`.
-
-| Nombre | Trigger | Duración |
-|---|---|---|
-| `marquee` | clase Tailwind `animate-marquee` | 40s loop |
-| `fade-up` | clase `animate-fade-up` o `[data-reveal]` | 0.8s ease-out |
-| `letter-in` / `letter-out` | scoped en `IntroOverlay` | 0.5s |
-| `intro-out` | scoped en `IntroOverlay` | 0.8s |
-
-**Reveals on-load:** atributo `data-reveal` + opcional `style="--reveal-delay: 0.15s"` para staggear. Auto-gateado por la animación intro (espera a `t=4.1s`).
+**Tracking:** `tracking-tightest` (`-0.04em`) para `ds-heading-section`. `letter-spacing: -0.06em` para `ds-heading-mega` (más apretado).
 
 ---
 
-## 3 — Clases del Design System (`ds-*`)
+## 5 — Border radius
 
-Todas viven en `src/styles/ds.css` dentro de `@layer components`. Se importan vía `src/styles/globals.css` desde `Layout.astro`.
-
-### Layout
-
-| Clase | Equivalente Tailwind | Uso |
+| Token | Valor | Uso |
 |---|---|---|
-| `ds-section` | `border-t border-line` | Borde superior estándar entre secciones |
-| `ds-section-inner` | container + `py-24 md:py-40` | Wrapper interno con padding generoso |
-| `ds-section-inner-tight` | container + `py-12` | Variante compacta (footer) |
-| `ds-container` | `mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16` | Container sin padding vertical |
+| `rounded-3xl` | 24px | Cards (más redondeado, estilo Fabrica) |
+| `rounded-2xl` | 16px | Cards interiores, avatar boxes |
+| `rounded-xl` | 12px | Imágenes, mini-elementos |
+| `rounded-full` | pill | Buttons, inputs |
+| `rounded-none` | 0 | Sections, containers grandes |
 
-**Patrón:**
-```html
-<section class="ds-section">
-  <div class="ds-section-inner">
-    ...
-  </div>
-</section>
-```
+---
 
-### Tipografía
+## 6 — Espaciado
+
+| Patrón | Valor | Uso |
+|---|---|---|
+| Section vertical padding | `py-24` mobile / `py-40` desktop | `ds-section-inner` |
+| Container lateral | `px-6` mobile / `px-10` md / `px-16` lg | `ds-container` |
+| Max-width | `1440px` | Container global |
+
+---
+
+## 7 — Animaciones
+
+Definidas en `tailwind.config.mjs`, `src/styles/globals.css`, `IntroOverlay.astro`.
+
+| Nombre | Trigger | Duración |
+|---|---|---|
+| `marquee` | `animate-marquee` | 40s loop |
+| `fade-up` (vía `[data-reveal]`) | mount | 0.8s, gateado por intro |
+| `letter-in/out` | scoped intro | 0.5s c/u |
+| `intro-out` | scoped intro | 0.8s |
+| `nav-in` | scoped overlay menu | 0.4s |
+
+**Reveals on-load:** atributo `data-reveal` + opcional `style="--reveal-delay: 0.15s"`. Auto-gateado por la animación intro (espera a `t=4.1s`).
+
+---
+
+## 8 — Catálogo de clases `ds-*`
+
+### Surfaces
 
 | Clase | Uso |
 |---|---|
-| `ds-label` | Mini-label uppercase ("01 / Studio", "PULSAR · MADRID") |
-| `ds-heading-hero` | H1 del hero (clamp 56–160px) |
-| `ds-heading-section` | H2 estándar (clamp 40–80px) |
-| `ds-heading-contact` | H2 grande del contacto (clamp 48–140px) |
-| `ds-italic` | Variante itálica light para enfatizar (cierre de frase) |
-| `ds-body` | Párrafo cuerpo medio (`text-base md:text-lg text-muted leading-relaxed`) |
+| `ds-ink` | Aplicar a un block para flipearlo a dark surface (hero, CTA blocks). Las `ds-*` hijas se adaptan. |
+
+### Layout
+
+| Clase | Uso |
+|---|---|
+| `ds-section` | Borde superior estándar (border-line en light, border-ink-line en dark) |
+| `ds-section-inner` | Container con padding vertical generoso (`py-24 md:py-40`) |
+| `ds-section-inner-tight` | Variante compacta (footer) |
+| `ds-container` | Container sin padding vertical |
+
+### Typography
+
+| Clase | Uso |
+|---|---|
+| `ds-label` | Mini-label uppercase ("studio.", "+ EMAIL") |
+| `ds-heading-mega` | Wordmark hero (lowercase, gigante) |
+| `ds-heading-section` | Título de sección (lowercase + punto final) |
+| `ds-heading-sub` | Subtítulo / nombre en card |
+| `ds-italic` | Itálica light de énfasis |
+| `ds-body` | Párrafo cuerpo |
 
 ### Buttons
 
 | Clase | Uso |
 |---|---|
 | `ds-btn` | Base — pill, padding, transition. Sin color. |
-| `ds-btn-primary` | CTA principal: blanco sobre negro, hover muted |
-| `ds-btn-ghost` | CTA secundario: borde, hover card |
-| `ds-btn-pill` | Variante header: card de fondo, hover invierte a blanco |
+| `ds-btn-primary` | CTA principal en light surface (negro sobre claro) |
+| `ds-btn-primary-dark` | CTA principal en dark surface (claro sobre negro) |
+| `ds-btn-ghost` | CTA secundario en light |
+| `ds-btn-ghost-dark` | CTA secundario en dark |
+| `ds-btn-pill` | Variante header en light (card bg, hover invierte) |
+| `ds-btn-pill-dark` | Variante header en dark |
 
 ### Links
 
 | Clase | Uso |
 |---|---|
-| `ds-link` | Link inline de texto (muted → fg en hover) |
+| `ds-link` | Link inline (muted → fg en hover; adaptativo) |
 | `ds-link-external` | `ds-link` + `inline-flex` para encajar el `↗` |
 
 ### Cards
 
 | Clase | Uso |
 |---|---|
-| `ds-card` | Base: rounded-2xl + border + bg-card + padding |
-| `ds-card-hover` | Hover sutil → `bg-line` (cards informativas) |
-| `ds-card-invert` | Hover dramático → invierte a blanco/negro (cards clicables externas — Cadence) |
+| `ds-card` | Base white card on light bg (rounded-3xl) |
+| `ds-card-hover` | `ds-card` + hover sutil |
+| `ds-card-dark` | Card oscura sobre dark surface |
+| `ds-card-invert` | Card clicable que invierte a dark on hover (ej: Cadence externa) |
 
 ### Header
 
 | Clase | Uso |
 |---|---|
-| `ds-header` | Sticky + blur + borde sutil + bg semitransparente |
-| `ds-logo` | Logo wordmark (Inter 800, tracking-tight) |
+| `ds-logo` | Wordmark lowercase con tracking tight |
+
+### Decorativo
+
+| Clase | Uso |
+|---|---|
+| `ds-plus` | Marcadores `+` decorativos del grid (Fabrica-style) |
 
 ---
 
-## 4 — Componentes Astro y qué clases usan
+## 9 — Composición de la home
 
-| Componente | DS clases principales | Custom (`<style>`) |
-|---|---|---|
-| `Layout.astro` | (importa `globals.css`) | — |
-| `IntroOverlay.astro` | (scoped) | sí — animación intro completa |
-| `Header.astro` | `ds-header` · `ds-logo` · `ds-link` · `ds-btn-pill` | — |
-| `Hero.astro` | `ds-container` · `ds-label` · `ds-heading-hero` · `ds-italic` · `ds-body` · `ds-btn-primary` · `ds-btn-ghost` | mínimo (isolation) |
-| `Studio.astro` | `ds-section` · `ds-section-inner` · `ds-label` · `ds-heading-section` · `ds-italic` · `ds-card-hover` | — |
-| `Services.astro` | `ds-section` · `ds-section-inner` · `ds-label` · `ds-heading-section` | — |
-| `ServiceCard.astro` | `ds-card-hover` o `ds-card-invert` · `ds-label` | — |
-| `Approach.astro` | `ds-section` · `ds-section-inner` · `ds-label` · `ds-heading-section` | — |
-| `Contact.astro` | `ds-section` · `ds-section-inner` · `ds-label` · `ds-heading-contact` · `ds-italic` · `ds-btn-primary` · `ds-link-external` | — |
-| `Footer.astro` | `ds-section-inner-tight` · `ds-logo` · `ds-link` | — |
-| `ConsentBanner.astro` | `ds-container` · `ds-btn-primary` · `ds-btn-ghost` | mínimo (position fixed) |
-
----
-
-## 5 — Patrones de composición
-
-### Sección estándar
+### Hero (dark surface, único bloque ink)
 
 ```astro
-<section id="..." class="ds-section">
-  <div class="ds-section-inner">
-    <p class="ds-label mb-12">## / Section name</p>
-    <h2 class="ds-heading-section max-w-4xl mb-20">Título</h2>
-    <!-- contenido -->
+<section class="ds-ink hero">
+  <img src="..." class="hero-bg" />     <!-- foto wellness oscura -->
+  <div class="hero-overlay" />          <!-- gradient para legibilidad -->
+  <div class="hero-inner ds-container">
+    Top:    [wordmark "pulsar®" + "studio"]    [services list]
+    Plus:   [+  +  +  +]                       <!-- ds-plus markers -->
+    Bottom: [tagline two-tone]                 [CTA card "hablemos"]
+    Foot:   [© 2026 Pulsar Studio]
   </div>
 </section>
 ```
 
-### CTA dual (primario + ghost)
+### Resto de secciones (light surface)
+
+Patrón estándar:
 
 ```astro
-<div class="flex flex-wrap items-center gap-3">
-  <a href="..." class="ds-btn-primary">Acción primaria <span aria-hidden="true">→</span></a>
-  <a href="..." class="ds-btn-ghost">Acción secundaria</a>
-</div>
+<section id="..." class="ds-section">
+  <div class="ds-section-inner">
+    <p class="ds-label mb-12">studio.</p>
+    <h2 class="ds-heading-section mb-20">somos dos.</h2>
+    <!-- contenido en grid -->
+  </div>
+</section>
 ```
 
-### Reveal staggered
+### Header
 
-```astro
-<p class="ds-label" data-reveal style="--reveal-delay: 0s">…</p>
-<h1 class="ds-heading-hero" data-reveal style="--reveal-delay: 0.15s">…</h1>
-<p class="ds-body" data-reveal style="--reveal-delay: 0.35s">…</p>
-```
-
-El intro animation termina en `t=4.1s`. Si está activo, los reveals se disparan después. Si está skipeado (`html.intro-skip`), los delays son relativos al load.
+Fixed top-right hamburger sobre el hero (con `mix-blend-mode: difference` para legibilidad sobre cualquier fondo). Click → overlay full-screen white con nav stacked centrado, links lowercase grandes, email + copyright abajo.
 
 ---
 
-## 6 — Cuándo añadir CSS custom
+## 10 — Cuándo añadir CSS custom
 
 Solo en estos casos:
 
-1. **Animación local complicada** (ej: `IntroOverlay.astro`) — los keyframes solo aplican ahí
-2. **Pseudo-elementos o efectos no expresables en Tailwind** sin hacks
-3. **Posicionamiento fixed/sticky con z-index alto** que necesita aislamiento
+1. **Animación local complicada** (`IntroOverlay`, `Hero`, `Header overlay`) — los keyframes solo aplican ahí
+2. **Composición geométrica específica** (CTA card del hero con avatar + body + pill anidado) — más legible scoped que con Tailwind apilado
+3. **Pseudo-elementos** o efectos no expresables en Tailwind sin hacks
+4. **Posicionamiento fixed/sticky** que necesita aislamiento (hamburger + blend mode)
 
 Si el CSS custom acaba siendo reusable → promoverlo a `ds.css`.
 
-**No usar CSS custom para:**
-- Cambiar colores, padding, font-size, hover (todo eso ya lo hace Tailwind o `ds-*`)
-- Override de utilidades Tailwind (mejor cambiar la utilidad)
-
 ---
 
-## 7 — Migración / extensión
+## 11 — Migración / extensión
 
-Cuando aparezca una nueva línea de servicio, sección, o variante de botón:
+Cuando aparezca un nuevo patrón:
 
-1. Diseñarlo primero apilando Tailwind utilities en el componente
-2. Si se reutiliza en 2+ sitios → mover a `ds.css` con nombre semántico (`ds-card-feature`, `ds-btn-icon`)
+1. Diseñarlo apilando Tailwind utilities en el componente
+2. Si se reutiliza en 2+ sitios → mover a `ds.css` con nombre semántico
 3. Documentar la nueva clase aquí en la tabla correspondiente
-4. Buscar usos previos del patrón Tailwind apilado y reemplazar por la nueva clase
+4. Buscar usos previos del patrón Tailwind apilado y reemplazar
 
 **Regla operativa:** este archivo es la fuente de verdad de "qué clases existen". Si no está aquí, no existe oficialmente.

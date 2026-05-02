@@ -4,12 +4,12 @@ import { team } from "../config";
 
 <section id="studio" class="ds-section">
   <div class="ds-section-inner">
-    <p class="ds-label mb-12">01 / Studio</p>
+    <p class="ds-label mb-12">studio.</p>
 
-    <h2 class="ds-heading-section max-w-4xl mb-20">
-      Somos dos.
+    <h2 class="ds-heading-section max-w-5xl mb-20">
+      somos dos.
       <br />
-      Una constructora
+      una constructora
       <br />
       <span class="ds-italic">y una directora creativa.</span>
     </h2>
@@ -17,7 +17,7 @@ import { team } from "../config";
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
       {team.map((member) => (
         <article class="ds-card-hover group">
-          <div class="aspect-square mb-8 rounded-xl bg-bg border border-line flex items-center justify-center overflow-hidden">
+          <div class="aspect-square mb-8 rounded-2xl bg-bg border border-line flex items-center justify-center overflow-hidden">
             {/* TODO: replace with real photo of {member.name} */}
             <span
               class="font-display font-extrabold text-[clamp(64px,10vw,140px)] tracking-tightest text-muted group-hover:text-fg transition-colors duration-500"
@@ -26,7 +26,7 @@ import { team } from "../config";
             </span>
           </div>
           <p class="ds-label mb-3">{member.role}</p>
-          <h3 class="font-display font-bold text-2xl md:text-3xl mb-4 tracking-tight">
+          <h3 class="ds-heading-sub mb-4">
             {member.name}
           </h3>
           <p class="text-muted leading-relaxed">{member.bio}</p>

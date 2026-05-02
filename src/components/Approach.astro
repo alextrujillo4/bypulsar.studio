@@ -4,17 +4,15 @@ import { approach } from "../config";
 
 <section id="approach" class="ds-section">
   <div class="ds-section-inner">
-    <p class="ds-label mb-12">03 / Approach</p>
+    <p class="ds-label mb-12">approach.</p>
 
-    <h2 class="ds-heading-section max-w-4xl mb-20">Cómo trabajamos</h2>
+    <h2 class="ds-heading-section max-w-5xl mb-20">cómo trabajamos.</h2>
 
     <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
       {approach.map((step) => (
         <li class="border-t border-line pt-8">
           <span class="ds-label block mb-6">{step.step}</span>
-          <h3 class="font-display font-bold text-2xl md:text-3xl tracking-tight mb-4">
-            {step.title}
-          </h3>
+          <h3 class="ds-heading-sub mb-4 lowercase">{step.title.toLowerCase()}</h3>
           <p class="text-muted leading-relaxed">{step.desc}</p>
         </li>
       ))}

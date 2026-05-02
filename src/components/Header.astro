@@ -2,28 +2,245 @@
 import { brand, nav, social } from "../config";
 ---
 
-<header class="ds-header" data-reveal style="--reveal-delay: 0.1s">
+<header class="header" data-reveal style="--reveal-delay: 0.1s">
   <div class="ds-container">
-    <div class="flex items-center justify-between py-6">
-      <a href="/" class="ds-logo text-lg" aria-label={brand.name}>
-        {brand.shortName.toUpperCase()}
+    <div class="header-bar">
+      <a href="/" class="ds-logo text-base md:text-lg" aria-label={brand.name}>
+        {brand.shortName.toLowerCase()}<sup class="header-reg">®</sup>
       </a>
 
-      <nav class="hidden md:flex items-center gap-8 text-sm">
-        {nav.map((item) => (
-          <a href={item.href} class="ds-link">{item.label}</a>
-        ))}
-      </nav>
-
-      <a
-        href={social.calendly}
-        target="_blank"
-        rel="noopener"
-        class="ds-btn-pill hidden sm:inline-flex"
+      <button
+        type="button"
+        class="header-burger"
+        aria-label="Abrir menú"
+        aria-controls="nav-overlay"
+        aria-expanded="false"
+        data-burger
       >
-        Discovery call
-        <span aria-hidden="true">→</span>
-      </a>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
 </header>
+
+{/* Full-screen menu overlay */}
+<div id="nav-overlay" class="nav-overlay" hidden>
+  <div class="nav-overlay-bar ds-container">
+    <a href="/" class="ds-logo text-base md:text-lg">
+      {brand.shortName.toLowerCase()}<sup class="header-reg">®</sup>
+    </a>
+    <button
+      type="button"
+      class="header-burger header-burger--open"
+      aria-label="Cerrar menú"
+      data-burger-close
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <nav class="nav-overlay-list" aria-label="Navegación principal">
+    <ul>
+      <li><a href="/" data-nav-close>home</a></li>
+      {nav.map((item) => (
+        <li>
+          <a href={item.href} data-nav-close>{item.label.toLowerCase()}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <div class="nav-overlay-foot ds-container">
+    <a href={`mailto:${social.email}`} class="nav-overlay-email">
+      <span aria-hidden="true">+</span> {social.email}
+    </a>
+    <p class="nav-overlay-copy">© {new Date().getFullYear()} {brand.name}</p>
+  </div>
+</div>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .header-bar {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    color: #f5f5f5;
+    mix-blend-mode: difference;
+  }
+
+  .header-reg {
+    font-size: 0.55em;
+    vertical-align: super;
+    margin-left: 0.1em;
+    font-weight: 600;
+  }
+
+  .header-burger {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .header-burger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 0.2s ease;
+    margin: 0 auto;
+  }
+
+  .header-burger--open span:first-child {
+    transform: translateY(2.75px) rotate(45deg);
+  }
+  .header-burger--open span:last-child {
+    transform: translateY(-2.75px) rotate(-45deg);
+  }
+
+  /* ─── Overlay ──────────────────────────────────────────── */
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: #ffffff;
+    color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    animation: nav-in 0.4s ease-out;
+  }
+
+  .nav-overlay[hidden] {
+    display: none;
+  }
+
+  .nav-overlay-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .nav-overlay-list {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-overlay-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-overlay-list a {
+    display: inline-block;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(40px, 7vw, 88px);
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: #0a0a0a;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav-overlay-list a:hover {
+    color: #7a7a7a;
+  }
+
+  .nav-overlay-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .nav-overlay-email {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(18px, 2.2vw, 28px);
+    color: #0a0a0a;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 6px;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .nav-overlay-copy {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #7a7a7a;
+    margin: 0;
+  }
+
+  @keyframes nav-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const overlay = document.getElementById("nav-overlay");
+    const burgers = document.querySelectorAll("[data-burger]");
+    const closeBtns = document.querySelectorAll("[data-burger-close]");
+    const links = document.querySelectorAll("[data-nav-close]");
+
+    function open() {
+      if (!overlay) return;
+      overlay.hidden = false;
+      document.body.style.overflow = "hidden";
+      burgers.forEach((b) => b.setAttribute("aria-expanded", "true"));
+    }
+
+    function close() {
+      if (!overlay) return;
+      overlay.hidden = true;
+      document.body.style.overflow = "";
+      burgers.forEach((b) => b.setAttribute("aria-expanded", "false"));
+    }
+
+    burgers.forEach((b) => b.addEventListener("click", open));
+    closeBtns.forEach((b) => b.addEventListener("click", close));
+    links.forEach((l) => l.addEventListener("click", close));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay && !overlay.hidden) close();
+    });
+  })();
+</script>

@@ -1,33 +1,72 @@
 ---
-import { brand, social } from "../config";
+import { brand, social, heroImage, heroServiceList, heroCtaCard } from "../config";
 ---
 
-<section class="hero">
-  <div class="ds-container pt-20 md:pt-32 pb-24 md:pb-40">
-    <p class="ds-label mb-10" data-reveal style="--reveal-delay: 0s">
-      {brand.shortName} Studio · {brand.city}
-    </p>
+<section class="hero ds-ink">
+  {/* Background photo — TODO: reemplazar por foto propia */}
+  <img
+    src={heroImage.src}
+    alt={heroImage.alt}
+    class="hero-bg"
+    loading="eager"
+    decoding="async"
+  />
+  <div class="hero-overlay" aria-hidden="true"></div>
 
-    <h1 class="ds-heading-hero" data-reveal style="--reveal-delay: 0.15s">
-      Diseño y código
-      <br />
-      para marcas que
-      <br />
-      <span class="ds-italic">mueven cuerpos.</span>
-    </h1>
+  <div class="hero-inner ds-container">
+    {/* Top row: wordmark + services list */}
+    <div class="hero-top" data-reveal style="--reveal-delay: 0s">
+      <div class="hero-wordmark">
+        <h1 class="ds-heading-mega text-ink-fg lowercase">
+          pulsar<sup class="hero-reg">®</sup>
+        </h1>
+        <p class="hero-sub">studio</p>
+      </div>
 
-    <p class="ds-body mt-10 max-w-2xl" data-reveal style="--reveal-delay: 0.35s">
-      Estudio digital boutique para comunidades wellness — running, yoga, gym,
-      padel y outdoor. Branding, web, apps y un SaaS propio.
-    </p>
-
-    <div class="mt-12 flex flex-wrap items-center gap-3" data-reveal style="--reveal-delay: 0.5s">
-      <a href={social.calendly} target="_blank" rel="noopener" class="ds-btn-primary">
-        Discovery call
-        <span aria-hidden="true">→</span>
-      </a>
-      <a href="#studio" class="ds-btn-ghost">Conoce el estudio</a>
+      <ul class="hero-services">
+        {heroServiceList.map((s) => (
+          <li class="hero-service">{s}</li>
+        ))}
+      </ul>
     </div>
+
+    {/* Decorative + grid markers */}
+    <div class="hero-plus-row" aria-hidden="true">
+      <span class="ds-plus">+</span>
+      <span class="ds-plus">+</span>
+      <span class="ds-plus">+</span>
+      <span class="ds-plus">+</span>
+    </div>
+
+    {/* Bottom row: tagline + CTA card */}
+    <div class="hero-bottom" data-reveal style="--reveal-delay: 0.3s">
+      <p class="hero-tagline">
+        <span class="hero-tagline-bright">
+          {brand.tagline}
+        </span>
+        <span class="hero-tagline-fade">
+          {" "}{brand.description}
+        </span>
+      </p>
+
+      <a href={social.calendly} target="_blank" rel="noopener" class="hero-card">
+        <div class="hero-card-avatar" aria-hidden="true">
+          <span>P</span>
+        </div>
+        <div class="hero-card-body">
+          <p class="hero-card-badge">{heroCtaCard.badge}</p>
+          <p class="hero-card-who">{heroCtaCard.who}</p>
+          <span class="hero-card-cta">
+            {heroCtaCard.cta}
+            <span aria-hidden="true">→</span>
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <p class="hero-copyright" data-reveal style="--reveal-delay: 0.5s">
+      © {new Date().getFullYear()} {brand.name}
+    </p>
   </div>
 </section>
 
@@ -35,5 +74,217 @@ import { brand, social } from "../config";
   .hero {
     position: relative;
     isolation: isolate;
+    overflow: hidden;
+    min-height: clamp(600px, 100vh, 1100px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.55) contrast(1.05);
+    z-index: -2;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 80% at 50% 100%, rgba(10, 10, 10, 0.7), transparent 60%),
+      linear-gradient(180deg, rgba(10, 10, 10, 0.45) 0%, rgba(10, 10, 10, 0.85) 100%);
+    z-index: -1;
+  }
+
+  .hero-inner {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+    gap: 2rem;
+  }
+
+  /* ─── Top: wordmark + services ───────────────── */
+  .hero-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: end;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-top {
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+    }
+  }
+
+  .hero-wordmark {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-reg {
+    font-size: 0.35em;
+    vertical-align: super;
+    margin-left: 0.05em;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .hero-sub {
+    margin-top: -0.05em;
+    font-size: clamp(28px, 5vw, 80px);
+    font-weight: 600;
+    color: #f5f5f5;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    align-self: flex-end;
+    margin-left: 1rem;
+  }
+
+  .hero-services {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #f5f5f5;
+    font-size: clamp(14px, 1.2vw, 18px);
+    font-weight: 500;
+    text-align: left;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-services {
+      text-align: right;
+      align-items: flex-end;
+    }
+  }
+
+  /* ─── Plus markers ─────────────────────────────── */
+  .hero-plus-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: auto;
+    margin-bottom: 2rem;
+  }
+
+  /* ─── Bottom: tagline + card ───────────────────── */
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: end;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-bottom {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .hero-tagline {
+    max-width: 36rem;
+    font-size: clamp(15px, 1.3vw, 18px);
+    line-height: 1.5;
+    color: #f5f5f5;
+  }
+
+  .hero-tagline-bright {
+    color: #f5f5f5;
+  }
+
+  .hero-tagline-fade {
+    color: #9a9a9a;
+  }
+
+  /* ─── CTA card (Fabrica-style "Let's talk") ────── */
+  .hero-card {
+    display: inline-flex;
+    align-items: stretch;
+    gap: 0;
+    background: #ffffff;
+    color: #0a0a0a;
+    border-radius: 24px;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+  }
+
+  .hero-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-card-avatar {
+    width: 84px;
+    height: 84px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 38px;
+    color: #f5f5f5;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-card-body {
+    padding: 0.5rem 1.25rem 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .hero-card-badge {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #7a7a7a;
+    margin: 0;
+  }
+
+  .hero-card-who {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .hero-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #0a0a0a;
+    color: #f5f5f5;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font-size: 12px;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-top: 0.15rem;
+  }
+
+  /* ─── Copyright ─────────────────────────────────── */
+  .hero-copyright {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #9a9a9a;
+    margin-top: 1rem;
   }
 </style>

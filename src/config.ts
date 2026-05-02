@@ -120,10 +120,26 @@ export const nav = [
 
 // Imágenes Unsplash curadas — placeholders v1.
 // TODO: reemplazar por fotos propias / proyectos reales cuando estén disponibles.
+// Curado: foto wellness oscura + grano cinematográfico para encajar con hero monocromo.
 export const heroImage = {
-  src: "https://images.unsplash.com/photo-1502810365585-7d4d7e8b3f7f?auto=format&fit=crop&w=2400&q=80",
+  src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=2400&q=80",
   alt: "Wellness movement",
   credit: "Unsplash",
+} as const;
+
+// Hero: lista de servicios destacados (subset condensado para no saturar)
+export const heroServiceList = [
+  "Branding & creative direction",
+  "Web profesional",
+  "Apps móviles · Flutter",
+  "Cadence — SaaS wellness",
+] as const;
+
+// Hero CTA card (estilo Fabrica "Lauren Thompson"). Adaptado a un equipo de 2 sin fotos reales.
+export const heroCtaCard = {
+  badge: "Hablemos",
+  who: "Pulsar Studio",
+  cta: "Discovery call",
 } as const;
 
 // IDs externos — placeholders. Mover a estable en ARCHITECTURE.md cuando sean reales.

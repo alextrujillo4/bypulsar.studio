@@ -18,7 +18,7 @@ const linkProps = isExternal
   class:list={["group block", isExternal ? "ds-card-invert" : "ds-card-hover"]}
 >
   <div class="flex items-start justify-between mb-8">
-    <span class="ds-label group-hover:text-bg/60 transition-colors duration-300">
+    <span class="ds-label transition-colors duration-300">
       {service.num}
     </span>
     {isExternal && (
@@ -31,10 +31,10 @@ const linkProps = isExternal
     )}
   </div>
 
-  <h3 class="font-display font-bold text-2xl md:text-3xl tracking-tight mb-3">
-    {service.title}
+  <h3 class="ds-heading-sub mb-3 lowercase">
+    {service.title.toLowerCase()}
   </h3>
-  <p class="text-muted group-hover:text-bg/70 leading-relaxed mb-8 transition-colors duration-300">
+  <p class="text-muted group-hover:text-bg/80 leading-relaxed mb-8 transition-colors duration-300">
     {service.lead}
   </p>
 

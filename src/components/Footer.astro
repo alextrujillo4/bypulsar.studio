@@ -7,7 +7,9 @@ const year = new Date().getFullYear();
   <div class="ds-section-inner-tight">
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
       <div class="flex items-center gap-4">
-        <span class="ds-logo text-lg">{brand.shortName.toUpperCase()}</span>
+        <span class="ds-logo text-base">
+          {brand.shortName.toLowerCase()}<sup class="ml-0.5 text-xs">®</sup>
+        </span>
         <span class="text-muted text-sm">
           © {year} {brand.name} · {brand.city}
         </span>
@@ -15,12 +17,12 @@ const year = new Date().getFullYear();
 
       <nav class="flex items-center gap-6 text-sm">
         <a href={cadence.url} target="_blank" rel="noopener" class="ds-link">
-          Cadence ↗
+          cadence ↗
         </a>
         <a href={social.instagram} target="_blank" rel="noopener" class="ds-link">
-          Instagram ↗
+          instagram ↗
         </a>
-        <a href={`mailto:${social.email}`} class="ds-link">Email</a>
+        <a href={`mailto:${social.email}`} class="ds-link">email</a>
       </nav>
     </div>
   </div>

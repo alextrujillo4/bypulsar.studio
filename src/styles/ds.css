@@ -2,23 +2,36 @@
   Pulsar Studio — Design System
   Centralized component classes. See STYLES.md for full documentation.
 
-  Usage:
-    <button class="ds-btn-primary">…</button>
-    <section class="ds-section"><div class="ds-section-inner">…</div></section>
-    <p class="ds-label">01 / Studio</p>
-    <h2 class="ds-heading-section">…</h2>
+  Two-surface system (Fabrica-inspired):
+    - Default body surface: LIGHT off-white (#F0F0F0). Use plain ds-* classes.
+    - Hero / dark CTA blocks: DARK (#0A0A0A). Use ds-*-dark variants OR set ds-ink on the parent.
 
-  Composition guideline:
-    - Reach for ds-* first.
-    - Add Tailwind utilities only for instance-specific tweaks.
-    - If a Tailwind combo repeats 2+ times, promote it to a ds-* class here.
+  Usage:
+    <button class="ds-btn-primary">…</button>           (on light)
+    <button class="ds-btn-primary-dark">…</button>      (on dark)
+    <section class="ds-section">…</section>             (light bg, dark text)
+    <section class="ds-section ds-ink">…</section>      (flips to dark surface)
 */
 
 @layer components {
+  /* ─── Surfaces ─────────────────────────────────────────────── */
+
+  /* Apply ds-ink on a section/block to flip it to dark surface.
+     All ds-* children that read fg/muted/line/card will adapt. */
+  .ds-ink {
+    background-color: theme("colors.ink.DEFAULT");
+    color: theme("colors.ink.fg");
+  }
+
   /* ─── Layout ───────────────────────────────────────────────── */
 
   .ds-section {
     @apply border-t border-line;
+  }
+
+  .ds-ink.ds-section,
+  .ds-section.ds-ink {
+    @apply border-ink-line;
   }
 
   .ds-section-inner {
@@ -39,19 +52,28 @@
     @apply font-mono text-xs tracking-[0.2em] uppercase text-muted;
   }
 
-  .ds-heading-hero {
-    @apply font-display font-extrabold tracking-tightest leading-[0.95] text-fg;
-    font-size: clamp(56px, 11vw, 160px);
+  .ds-ink .ds-label {
+    @apply text-ink-muted;
   }
 
+  /* Mega: hero wordmark — "pulsar®" lowercase, takes full width */
+  .ds-heading-mega {
+    @apply font-display font-extrabold leading-[0.85] lowercase;
+    letter-spacing: -0.06em;
+    font-size: clamp(80px, 18vw, 280px);
+  }
+
+  /* Section title — fabrica-style "projects." */
   .ds-heading-section {
-    @apply font-display font-extrabold tracking-tightest leading-[1] text-fg;
-    font-size: clamp(40px, 6vw, 80px);
+    @apply font-display font-bold leading-[0.95] lowercase;
+    letter-spacing: -0.04em;
+    font-size: clamp(56px, 12vw, 200px);
   }
 
-  .ds-heading-contact {
-    @apply font-display font-extrabold tracking-tightest leading-[0.95] text-fg;
-    font-size: clamp(48px, 9vw, 140px);
+  /* Smaller heading for sub-sections (cards, member names) */
+  .ds-heading-sub {
+    @apply font-display font-bold tracking-tight;
+    font-size: clamp(24px, 3vw, 36px);
   }
 
   .ds-italic {
@@ -59,7 +81,11 @@
   }
 
   .ds-body {
-    @apply text-base md:text-lg text-muted leading-relaxed;
+    @apply text-base md:text-lg leading-relaxed text-muted;
+  }
+
+  .ds-ink .ds-body {
+    @apply text-ink-muted;
   }
 
   /* ─── Buttons ──────────────────────────────────────────────── */
@@ -68,16 +94,34 @@
     @apply inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors duration-200;
   }
 
+  /* Primary on LIGHT surface — dark pill on light bg */
   .ds-btn-primary {
     @apply ds-btn bg-fg text-bg hover:bg-muted;
   }
 
-  .ds-btn-ghost {
-    @apply ds-btn border border-line hover:bg-card;
+  /* Primary on DARK surface — light pill on dark bg */
+  .ds-btn-primary-dark {
+    @apply ds-btn bg-ink-fg text-ink hover:bg-ink-muted;
   }
 
+  /* Ghost on LIGHT */
+  .ds-btn-ghost {
+    @apply ds-btn border border-line bg-card hover:bg-bg;
+  }
+
+  /* Ghost on DARK */
+  .ds-btn-ghost-dark {
+    @apply ds-btn border border-ink-line bg-ink-card hover:bg-ink-line;
+  }
+
+  /* Compact pill (header, small CTAs) on LIGHT */
   .ds-btn-pill {
     @apply inline-flex items-center gap-2 rounded-full border border-line bg-card px-5 py-2.5 text-sm transition-colors duration-200 hover:bg-fg hover:text-bg;
+  }
+
+  /* Compact pill on DARK */
+  .ds-btn-pill-dark {
+    @apply inline-flex items-center gap-2 rounded-full border border-ink-line bg-ink-card px-5 py-2.5 text-sm text-ink-fg transition-colors duration-200 hover:bg-ink-fg hover:text-ink;
   }
 
   /* ─── Links ────────────────────────────────────────────────── */
@@ -86,33 +130,57 @@
     @apply text-muted transition-colors duration-200 hover:text-fg;
   }
 
+  .ds-ink .ds-link {
+    @apply text-ink-muted hover:text-ink-fg;
+  }
+
   .ds-link-external {
     @apply ds-link inline-flex items-center gap-2;
   }
 
   /* ─── Cards ────────────────────────────────────────────────── */
 
+  /* White card on LIGHT bg */
   .ds-card {
-    @apply rounded-2xl border border-line bg-card p-8 md:p-10 transition-colors duration-300;
+    @apply rounded-3xl border border-line bg-card p-8 md:p-10 transition-colors duration-300;
   }
 
   .ds-card-hover {
-    @apply ds-card hover:bg-line;
+    @apply ds-card hover:border-fg/20;
+  }
+
+  /* Dark card on DARK bg */
+  .ds-card-dark {
+    @apply rounded-3xl border border-ink-line bg-ink-card p-8 md:p-10 transition-colors duration-300;
   }
 
   .ds-card-invert {
-    @apply ds-card cursor-pointer hover:bg-fg hover:text-bg;
+    @apply ds-card cursor-pointer hover:bg-fg hover:text-bg hover:border-fg;
   }
 
   /* ─── Header ───────────────────────────────────────────────── */
 
   .ds-header {
-    @apply sticky top-0 z-50 border-b backdrop-blur-md;
-    background: rgba(10, 10, 10, 0.6);
+    @apply sticky top-0 z-50 border-b border-line/80 backdrop-blur-md;
+    background-color: rgba(240, 240, 240, 0.7);
+  }
+
+  .ds-header-on-hero {
+    background-color: rgba(10, 10, 10, 0.5);
     border-bottom-color: rgba(31, 31, 31, 0.6);
+    color: theme("colors.ink.fg");
   }
 
   .ds-logo {
-    @apply font-display font-extrabold tracking-tight text-fg;
+    @apply font-display font-extrabold tracking-tight lowercase;
+  }
+
+  /* ─── Decorative ───────────────────────────────────────────── */
+
+  /* Plus markers — Fabrica-style decorative grid alignment markers */
+  .ds-plus {
+    @apply text-2xl select-none;
+    line-height: 1;
+    color: rgba(245, 245, 245, 0.35);
   }
 }
