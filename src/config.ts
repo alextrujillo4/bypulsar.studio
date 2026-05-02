@@ -39,46 +39,46 @@ export type Service = {
   num: string;
   title: string;
   lead: string;
-  bullets: string[];
+  categories: string[];
   external?: string;
 };
 
 export const services: Service[] = [
   {
-    num: "00",
+    num: "001",
     title: "Branding y dirección creativa",
-    lead: "Identidad visual completa, sistema y manual.",
-    bullets: ["Logo + paleta + tipografía", "Sistema visual", "Aplicaciones de marca"],
+    lead: "Identidad visual completa que conecta con tu comunidad. Logo, sistema y manual.",
+    categories: ["Logo", "Identidad", "Paleta", "Tipografía", "Manual", "Aplicaciones"],
   },
   {
-    num: "01",
+    num: "002",
     title: "Web profesional",
-    lead: "Sitios rápidos, SEO-ready, con alma.",
-    bullets: ["Diseño + desarrollo", "Core Web Vitals optimizados", "CMS si lo necesitas"],
+    lead: "Sitios rápidos, SEO-ready y con alma. Pensados para conversión real.",
+    categories: ["Diseño", "Desarrollo", "Core Web Vitals", "SEO", "CMS"],
   },
   {
-    num: "02",
+    num: "003",
     title: "Apps móviles y MVPs",
-    lead: "Flutter + Supabase. Producto real en semanas.",
-    bullets: ["iOS + Android", "Backend incluido", "Rango €5–12k"],
+    lead: "Flutter + Supabase. Producto real en semanas. iOS y Android desde el primer release.",
+    categories: ["iOS", "Android", "Flutter", "Supabase", "MVPs"],
   },
   {
-    num: "03",
+    num: "004",
     title: "AI assets",
-    lead: "Photo boost, event identity, video promo.",
-    bullets: ["AI photo enhancement", "Kits de evento", "Video slideshows"],
+    lead: "Tu material visual amplificado: photo boost, event identity y video promo.",
+    categories: ["Photo boost", "Event identity", "Video promo", "Slideshows"],
   },
   {
-    num: "04",
+    num: "005",
     title: "Shopify setup",
-    lead: "Tienda lista para vender en días.",
-    bullets: ["Hasta 10 productos", "Configuración de pagos", "Tema personalizado"],
+    lead: "Tienda lista para vender en días. Setup, configuración y tema personalizado.",
+    categories: ["Setup", "Productos", "Pagos", "Tema", "Migración"],
   },
   {
-    num: "05",
+    num: "006",
     title: "Cadence",
-    lead: "SaaS para comunidades wellness. Web gestionada por chat.",
-    bullets: ["Multi-tenant", "Eventos · galería · tienda", "Cadence AI integrado"],
+    lead: "SaaS propio para comunidades wellness. Tu web profesional, gestionada por chat.",
+    categories: ["SaaS", "Multi-tenant", "Eventos", "Galería", "Tienda", "AI chat"],
     external: "https://cadence.club",
   },
 ];

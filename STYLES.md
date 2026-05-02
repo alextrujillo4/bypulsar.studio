@@ -196,6 +196,27 @@ Definidas en `tailwind.config.mjs`, `src/styles/globals.css`, `IntroOverlay.astr
 |---|---|
 | `ds-plus` | Marcadores `+` decorativos del grid (Fabrica-style) |
 
+### Ink card section (rounded dark block en página clara)
+
+| Clase | Uso |
+|---|---|
+| `ds-section-ink-wrap` | Wrapper de la sección con padding lateral pequeño (deja ver el bg light) |
+| `ds-ink-card` | Card oscura con `border-radius` grande, gradiente sutil + grain (pseudo `::before`) y color de texto adaptado a dark |
+| `ds-ink-card-inner` | Padding interno generoso de la card |
+
+**Patrón de ritmo de página (alternancia black ↔ white):**
+
+```
+Hero          (ds-ink, full-bleed, foto bg)         ← dark
+Studio        (ds-section, light)                   ← light
+Services      (ds-section-ink-wrap > ds-ink-card)   ← dark, rounded card
+Approach      (ds-section, light)                   ← light
+Contact       (ds-section, light)                   ← light  (puede pasar a ink-card si se necesita más ritmo)
+Footer        (border-t, light)                     ← light
+```
+
+El bloque de Services usa `<details>`/`<summary>` nativos para el acordeón (primera entrada `open` por defecto, sin JS). Los toggles `+/−` están construidos con `::before`/`::after` pseudo-elementos que rotan al cambiar el atributo `[open]`.
+
 ---
 
 ## 9 — Composición de la home

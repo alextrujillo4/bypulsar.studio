@@ -83,7 +83,7 @@ CLAUDE.md        este archivo
 | Tarea | Dónde |
 |---|---|
 | Cambiar copy del Hero/Studio/Services/Approach/Contact | `src/config.ts` (brand, team, services, approach) |
-| Añadir/quitar línea de servicio | `src/config.ts → services` (el array pinta la grid sola) |
+| Añadir/quitar línea de servicio | `src/config.ts → services` (el array pinta el acordeón solo). Recuerda llenar `categories: string[]` con tags cortos para los pills. |
 | Cambiar email/Instagram/Calendly | `src/config.ts → social` |
 | Cambiar paleta o tipografía | `tailwind.config.mjs` (tokens) + verificar `STYLES.md` |
 | Añadir un nuevo botón / card / heading reusable | `src/styles/ds.css` (en `@layer components`) + documentar en `STYLES.md` |

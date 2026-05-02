@@ -1,18 +1,355 @@
 ---
-import { services } from "../config";
-import ServiceCard from "./ServiceCard.astro";
+import { services, social } from "../config";
 ---
 
-<section id="services" class="ds-section">
-  <div class="ds-section-inner">
-    <p class="ds-label mb-12">services.</p>
+<section id="services" class="ds-section-ink-wrap">
+  <div class="ds-ink-card">
+    <div class="ds-ink-card-inner">
+      <header class="services-header">
+        <p class="services-eyebrow">
+          <span class="services-eyebrow-mark" aria-hidden="true">+</span>
+          What we do
+        </p>
 
-    <h2 class="ds-heading-section max-w-5xl mb-20">lo que hacemos.</h2>
+        <h2 class="services-title">
+          <span>services.</span>
+          <sup class="services-count">({services.length})</sup>
+        </h2>
+      </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-      {services.map((service) => (
-        <ServiceCard service={service} />
-      ))}
+      <ol class="services-list">
+        {services.map((service, i) => (
+          <li>
+            <details class="service-item" open={i === 0}>
+              <summary class="service-row">
+                <span class="service-num">({service.num})</span>
+                <span class="service-title">{service.title}</span>
+                <span class="service-toggle" aria-hidden="true"></span>
+              </summary>
+
+              <div class="service-body">
+                <div class="service-thumb" aria-hidden="true">
+                  <span>{service.num.slice(-2)}</span>
+                </div>
+
+                <h3 class="service-name">{service.title}</h3>
+                <p class="service-desc">{service.lead}</p>
+
+                <p class="service-cats-label">Categories</p>
+                <ul class="service-cats">
+                  {service.categories.slice(0, 4).map((c) => (
+                    <li class="service-pill">{c}</li>
+                  ))}
+                  {service.categories.length > 4 && (
+                    <li class="service-pill-more">
+                      {service.categories.length - 4}+
+                    </li>
+                  )}
+                </ul>
+
+                {service.external && (
+                  <a
+                    href={service.external}
+                    target="_blank"
+                    rel="noopener"
+                    class="service-external"
+                  >
+                    Visit cadence.club
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
+            </details>
+          </li>
+        ))}
+      </ol>
+
+      <div class="services-cta">
+        <a
+          href={social.calendly}
+          target="_blank"
+          rel="noopener"
+          class="services-cta-btn"
+        >
+          Get started
+        </a>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* ─── Header ──────────────────────────────────────────── */
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+
+  @media (min-width: 1024px) {
+    .services-header {
+      grid-template-columns: auto 1fr;
+      gap: 4rem;
+      align-items: end;
+    }
+  }
+
+  .services-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #f5f5f5;
+    margin: 0;
+  }
+
+  .services-eyebrow-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    color: #0a0a0a;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .services-title {
+    margin: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(56px, 10vw, 160px);
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: #f5f5f5;
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    .services-title {
+      justify-self: center;
+    }
+  }
+
+  .services-count {
+    font-size: 0.32em;
+    font-weight: 400;
+    color: #9a9a9a;
+    line-height: 1.3;
+    margin-top: 0.4em;
+  }
+
+  /* ─── Accordion ───────────────────────────────────────── */
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .service-item {
+    border-top: 1px solid rgba(245, 245, 245, 0.08);
+  }
+
+  .services-list > li:last-child .service-item {
+    border-bottom: 1px solid rgba(245, 245, 245, 0.08);
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: clamp(1.25rem, 2.5vw, 2rem) 0;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .service-row::-webkit-details-marker { display: none; }
+  .service-row::marker { display: none; }
+
+  .service-num {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 13px;
+    color: #9a9a9a;
+  }
+
+  .service-title {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(18px, 1.8vw, 24px);
+    color: #f5f5f5;
+    letter-spacing: -0.01em;
+  }
+
+  .service-toggle {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(245, 245, 245, 0.2);
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .service-toggle::before,
+  .service-toggle::after {
+    content: "";
+    position: absolute;
+    background: #f5f5f5;
+    top: 50%;
+    left: 50%;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .service-toggle::before {
+    width: 12px;
+    height: 1.5px;
+    transform: translate(-50%, -50%);
+  }
+
+  .service-toggle::after {
+    width: 1.5px;
+    height: 12px;
+    transform: translate(-50%, -50%);
+  }
+
+  .service-item[open] .service-toggle::after {
+    opacity: 0;
+  }
+
+  .service-item:hover .service-toggle {
+    background-color: rgba(245, 245, 245, 0.06);
+    border-color: rgba(245, 245, 245, 0.4);
+  }
+
+  /* ─── Body ────────────────────────────────────────────── */
+  .service-body {
+    display: grid;
+    gap: 1.25rem;
+    padding: 0.5rem 0 clamp(2rem, 4vw, 3rem) 0;
+    max-width: 56rem;
+  }
+
+  @media (min-width: 768px) {
+    .service-body {
+      padding-left: clamp(0px, 4vw, 64px);
+    }
+  }
+
+  .service-thumb {
+    width: 96px;
+    height: 96px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #2a2a2a, #0f0f0f);
+    border: 1px solid rgba(245, 245, 245, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    color: rgba(245, 245, 245, 0.7);
+    letter-spacing: -0.04em;
+  }
+
+  .service-name {
+    margin: 0.5rem 0 0 0;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 2.2vw, 32px);
+    color: #f5f5f5;
+    letter-spacing: -0.02em;
+  }
+
+  .service-desc {
+    margin: 0;
+    font-size: clamp(15px, 1.2vw, 17px);
+    color: #9a9a9a;
+    line-height: 1.55;
+    max-width: 42rem;
+  }
+
+  .service-cats-label {
+    margin: 0.5rem 0 0 0;
+    font-size: 13px;
+    color: #7a7a7a;
+  }
+
+  .service-cats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .service-pill {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    color: #0a0a0a;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .service-pill-more {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(245, 245, 245, 0.08);
+    color: #9a9a9a;
+    border-radius: 999px;
+    padding: 0.5rem 0.85rem;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .service-external {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    font-size: 13px;
+    color: #f5f5f5;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    align-self: flex-start;
+  }
+
+  /* ─── CTA ─────────────────────────────────────────────── */
+  .services-cta {
+    margin-top: clamp(2rem, 5vw, 4rem);
+    display: flex;
+    justify-content: center;
+  }
+
+  .services-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #f5f5f5;
+    color: #0a0a0a;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 1rem 2.5rem;
+    border-radius: 999px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .services-cta-btn:hover {
+    background: #ffffff;
+    transform: translateY(-1px);
+  }
+</style>

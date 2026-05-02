@@ -183,4 +183,39 @@
     line-height: 1;
     color: rgba(245, 245, 245, 0.35);
   }
+
+  /* ─── Ink card section ─────────────────────────────────────── */
+
+  /* Wrapper that puts a rounded dark "card" inside a light page section.
+     The grain + gradient go inside on .ds-ink-card-surface. */
+  .ds-section-ink-wrap {
+    @apply mx-auto max-w-[1440px] px-4 md:px-6 lg:px-10 py-6 md:py-10;
+  }
+
+  .ds-ink-card {
+    @apply relative overflow-hidden text-ink-fg;
+    background-color: theme("colors.ink.DEFAULT");
+    background-image:
+      radial-gradient(120% 90% at 50% 0%, rgba(60, 60, 60, 0.35), transparent 55%),
+      radial-gradient(80% 60% at 50% 100%, rgba(20, 20, 20, 0.6), transparent 60%),
+      linear-gradient(180deg, #131313 0%, #0a0a0a 60%);
+    border-radius: clamp(20px, 3vw, 40px);
+  }
+
+  /* Grain overlay — applied via ::before to keep markup clean.
+     Opacity tuned to be subtle but present on dark. */
+  .ds-ink-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+  }
+
+  .ds-ink-card-inner {
+    @apply relative;
+    padding: clamp(2rem, 5vw, 5rem);
+  }
 }
