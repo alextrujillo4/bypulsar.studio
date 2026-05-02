@@ -1,0 +1,78 @@
+---
+// Consent banner — gates GA4 + Clarity (loaded as type="text/plain" with data-consent-gated).
+// Persists user choice in localStorage["ba-consent"] = "accepted" | "rejected".
+---
+
+<div id="consent-banner" class="consent-banner" hidden>
+  <div class="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 py-4">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-2xl border border-line bg-card p-4 md:p-5">
+      <p class="text-sm text-muted leading-relaxed max-w-2xl">
+        Usamos cookies para entender cómo funciona el sitio y mejorarlo. Puedes
+        aceptar o rechazar — no afecta la navegación.
+      </p>
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          id="consent-reject"
+          type="button"
+          class="rounded-full border border-line px-4 py-2 text-sm hover:bg-line transition-colors duration-200"
+        >
+          Rechazar
+        </button>
+        <button
+          id="consent-accept"
+          type="button"
+          class="rounded-full bg-fg text-bg px-4 py-2 text-sm font-medium hover:bg-muted transition-colors duration-200"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const KEY = "ba-consent";
+    const banner = document.getElementById("consent-banner");
+    if (!banner) return;
+    const stored = localStorage.getItem(KEY);
+    if (!stored) {
+      banner.hidden = false;
+    } else if (stored === "accepted") {
+      activateGated();
+    }
+
+    document.getElementById("consent-accept")?.addEventListener("click", () => {
+      localStorage.setItem(KEY, "accepted");
+      banner.hidden = true;
+      activateGated();
+    });
+    document.getElementById("consent-reject")?.addEventListener("click", () => {
+      localStorage.setItem(KEY, "rejected");
+      banner.hidden = true;
+    });
+
+    function activateGated() {
+      document.querySelectorAll("script[data-consent-gated]").forEach((node) => {
+        const oldScript = node;
+        const newScript = document.createElement("script");
+        for (const attr of Array.from(oldScript.attributes)) {
+          if (attr.name === "type" || attr.name === "data-consent-gated") continue;
+          newScript.setAttribute(attr.name, attr.value);
+        }
+        newScript.text = oldScript.textContent || "";
+        oldScript.parentNode?.replaceChild(newScript, oldScript);
+      });
+    }
+  })();
+</script>

@@ -1,0 +1,134 @@
+// Single source of truth — Pulsar Studio public site.
+// Edit this file to update brand, team, services, social links across the site.
+// Inercia (entidad facturadora) NUNCA aparece aquí ni en ningún material público.
+
+export const brand = {
+  name: "Pulsar Studio",
+  shortName: "Pulsar",
+  domain: "bypulsar.studio",
+  url: "https://bypulsar.studio",
+  city: "Madrid",
+  tagline: "Diseño y código para marcas que mueven cuerpos.",
+  description:
+    "Estudio digital boutique especializado en marcas wellness — running, yoga, gym, padel, outdoor.",
+} as const;
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  bio: string;
+  initials: string;
+};
+
+export const team: TeamMember[] = [
+  {
+    name: "Alexandro Trujillo",
+    role: "Engineering",
+    bio: "8 años en Flutter y mobile. Arquitectura, apps y plataformas SaaS.",
+    initials: "AT",
+  },
+  {
+    name: "Ela Reyna",
+    role: "Creative direction",
+    bio: "Branding, identidad visual y contenido. La que le mete alma.",
+    initials: "ER",
+  },
+];
+
+export type Service = {
+  num: string;
+  title: string;
+  lead: string;
+  bullets: string[];
+  external?: string;
+};
+
+export const services: Service[] = [
+  {
+    num: "00",
+    title: "Branding y dirección creativa",
+    lead: "Identidad visual completa, sistema y manual.",
+    bullets: ["Logo + paleta + tipografía", "Sistema visual", "Aplicaciones de marca"],
+  },
+  {
+    num: "01",
+    title: "Web profesional",
+    lead: "Sitios rápidos, SEO-ready, con alma.",
+    bullets: ["Diseño + desarrollo", "Core Web Vitals optimizados", "CMS si lo necesitas"],
+  },
+  {
+    num: "02",
+    title: "Apps móviles y MVPs",
+    lead: "Flutter + Supabase. Producto real en semanas.",
+    bullets: ["iOS + Android", "Backend incluido", "Rango €5–12k"],
+  },
+  {
+    num: "03",
+    title: "AI assets",
+    lead: "Photo boost, event identity, video promo.",
+    bullets: ["AI photo enhancement", "Kits de evento", "Video slideshows"],
+  },
+  {
+    num: "04",
+    title: "Shopify setup",
+    lead: "Tienda lista para vender en días.",
+    bullets: ["Hasta 10 productos", "Configuración de pagos", "Tema personalizado"],
+  },
+  {
+    num: "05",
+    title: "Cadence",
+    lead: "SaaS para comunidades wellness. Web gestionada por chat.",
+    bullets: ["Multi-tenant", "Eventos · galería · tienda", "Cadence AI integrado"],
+    external: "https://cadence.club",
+  },
+];
+
+export type ApproachStep = {
+  step: string;
+  title: string;
+  desc: string;
+};
+
+export const approach: ApproachStep[] = [
+  { step: "01", title: "Discovery", desc: "Llamada de 30 min. Sin venta, solo entender." },
+  { step: "02", title: "Propuesta", desc: "Una página, en 48 horas." },
+  { step: "03", title: "Build", desc: "14 días. Tú revisas, nosotros ejecutamos." },
+  { step: "04", title: "Go live", desc: "Autónomo desde el día 1. Check-in mensual." },
+];
+
+export const social = {
+  // TODO: confirmar email real
+  email: "hello@bypulsar.studio",
+  // TODO: handle real
+  instagram: "https://instagram.com/bypulsar.studio",
+  instagramHandle: "@bypulsar.studio",
+  // TODO: URL real del Calendly
+  calendly: "https://calendly.com/bypulsar/discovery",
+} as const;
+
+export const cadence = {
+  url: "https://cadence.club",
+} as const;
+
+export const nav = [
+  { label: "Studio", href: "#studio" },
+  { label: "Services", href: "#services" },
+  { label: "Approach", href: "#approach" },
+  { label: "Contact", href: "#contact" },
+] as const;
+
+// Imágenes Unsplash curadas — placeholders v1.
+// TODO: reemplazar por fotos propias / proyectos reales cuando estén disponibles.
+export const heroImage = {
+  src: "https://images.unsplash.com/photo-1502810365585-7d4d7e8b3f7f?auto=format&fit=crop&w=2400&q=80",
+  alt: "Wellness movement",
+  credit: "Unsplash",
+} as const;
+
+// IDs externos — placeholders. Mover a estable en ARCHITECTURE.md cuando sean reales.
+export const tracking = {
+  // TODO: GA4 measurement ID (G-XXXXXXXX)
+  ga4Id: "",
+  // TODO: Microsoft Clarity project ID
+  clarityId: "",
+} as const;

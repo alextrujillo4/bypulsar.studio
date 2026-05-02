@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "TODO-pulsar-studio-staging",
+    "prod": "TODO-pulsar-studio-prod"
+  }
+}

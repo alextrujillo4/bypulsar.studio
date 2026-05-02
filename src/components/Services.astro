@@ -1,0 +1,22 @@
+---
+import { services } from "../config";
+import ServiceCard from "./ServiceCard.astro";
+---
+
+<section id="services" class="border-t border-line">
+  <div class="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16 py-24 md:py-40">
+    <p class="font-mono text-xs tracking-[0.2em] uppercase text-muted mb-12">
+      02 / Services
+    </p>
+
+    <h2 class="font-display font-extrabold tracking-tightest leading-[1] text-[clamp(40px,6vw,80px)] max-w-4xl mb-20">
+      Lo que hacemos
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      {services.map((service) => (
+        <ServiceCard service={service} />
+      ))}
+    </div>
+  </div>
+</section>
