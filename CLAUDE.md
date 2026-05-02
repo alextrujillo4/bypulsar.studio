@@ -21,7 +21,7 @@ Si vas a tocar código, abre los tres.
 
 ### 1. Naming público
 
-- La marca pública es **Pulsar Studio**. El wordmark es **`pulsar®`** lowercase (con `®`). Las versiones largas siempre como "Pulsar Studio" (capitalizado en copy de cuerpo) o `pulsar® studio` (en headings tipo Fabrica).
+- La marca pública es **Pulsar Studio**. El wordmark es **`pulsar`** lowercase (sin `®`). Las versiones largas siempre como "Pulsar Studio" (capitalizado en copy de cuerpo) o `pulsar studio` (en headings tipo Fabrica).
 - **Inercia** es la entidad facturadora interna. **NUNCA** debe aparecer en código público:
   - ni en copy, meta tags, OG, footer, alt de imágenes, ni en assets
   - excepción acordada y temporal: la URL del Calendly `calendly.com/inercia/30min` (visible solo al click). Hay TODO para migrar.
@@ -29,7 +29,7 @@ Si vas a tocar código, abre los tres.
 
 ### Convención lowercase (Fabrica-style)
 
-- Wordmark: `pulsar®`
+- Wordmark: `pulsar`
 - Títulos de sección: `studio.`, `services.`, `approach.`, `contact.` (lowercase + punto final)
 - Labels mini: lowercase también (`studio.`, `01`)
 - Copy de cuerpo: capitalización normal de español

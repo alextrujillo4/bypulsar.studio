@@ -9,7 +9,7 @@ Sistema visual completo. Para arquitectura, stack y operativa, ver [`ARCHITECTUR
 
 ## 1 — Filosofía
 
-**Inspiración visual:** [Fabrica template](https://fabrica.framer.media/) — wordmark lowercase + ®, hero oscuro con foto, resto del sitio en off-white claro, tipografía gigante con punto final ("projects.", "studio."), bordes muy redondeados (`rounded-3xl`), sin acentos de color.
+**Inspiración visual:** [Fabrica template](https://fabrica.framer.media/) — wordmark lowercase, hero oscuro con foto, resto del sitio en off-white claro, tipografía grande con punto final ("projects.", "studio."), bordes muy redondeados (`rounded-3xl`), sin acentos de color.
 
 **Centralizado, no atomizado.** Todo lo visual repetible vive como clase `ds-*` en `src/styles/ds.css`. Los componentes Astro componen esas clases.
 
@@ -77,14 +77,14 @@ Definidos en `tailwind.config.mjs`.
 
 | Clase | Tamaño | Uso |
 |---|---|---|
-| `ds-heading-mega` | `clamp(80px, 18vw, 280px)` | Wordmark hero "pulsar®" |
-| `ds-heading-section` | `clamp(56px, 12vw, 200px)` | Títulos de sección "studio.", "services." (lowercase + punto final) |
-| `ds-heading-sub` | `clamp(24px, 3vw, 36px)` | Nombres de cards, subtítulos |
+| `ds-heading-mega` | `clamp(64px, 11vw, 180px)` | Wordmark hero "pulsar" |
+| `ds-heading-section` | `clamp(40px, 7vw, 110px)` | Títulos de sección "studio.", "services." (lowercase + punto final) |
+| `ds-heading-sub` | `clamp(20px, 2.4vw, 30px)` | Nombres de cards, subtítulos |
 | `ds-body` | 16–18px | Cuerpo de texto |
 | `ds-label` | 12px uppercase tracked | Labels secundarios "studio.", "01" |
 | `ds-italic` | — | Variante itálica light para énfasis al cierre |
 
-**Convención lowercase:** títulos de sección (`ds-heading-section`) están **siempre en minúsculas con punto final** (`studio.`, `services.`, `approach.`, `contact.`). El wordmark también es lowercase (`pulsar®`).
+**Convención lowercase:** títulos de sección (`ds-heading-section`) están **siempre en minúsculas con punto final** (`studio.`, `services.`, `approach.`, `contact.`). El wordmark también es lowercase (`pulsar`).
 
 **Tracking:** `tracking-tightest` (`-0.04em`) para `ds-heading-section`. `letter-spacing: -0.06em` para `ds-heading-mega` (más apretado).
 
@@ -207,7 +207,7 @@ Definidas en `tailwind.config.mjs`, `src/styles/globals.css`, `IntroOverlay.astr
   <img src="..." class="hero-bg" />     <!-- foto wellness oscura -->
   <div class="hero-overlay" />          <!-- gradient para legibilidad -->
   <div class="hero-inner ds-container">
-    Top:    [wordmark "pulsar®" + "studio"]    [services list]
+    Top:    [wordmark "pulsar" + "studio"]     [services list]
     Plus:   [+  +  +  +]                       <!-- ds-plus markers -->
     Bottom: [tagline two-tone]                 [CTA card "hablemos"]
     Foot:   [© 2026 Pulsar Studio]

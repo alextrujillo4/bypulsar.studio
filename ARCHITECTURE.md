@@ -85,7 +85,7 @@ CLAUDE.md          contexto para asistentes IA
 Resumen de alto nivel para arquitectura:
 
 - **Paleta dual:** light `#F0F0F0` por defecto + dark `#0A0A0A` (token `ink`) para el hero y futuros bloques CTA oscuros. Sin acento de color.
-- **Marca pública:** wordmark lowercase con `®` (`pulsar®`).
+- **Marca pública:** wordmark lowercase (`pulsar`).
 - **Tipografía:** Inter (display + body) + IBM Plex Sans (labels uppercase). Cargadas vía Google Fonts. Títulos de sección lowercase con punto final (`studio.`, `services.`).
 - **Centralización:** todo lo visual repetible vive en `src/styles/ds.css` como clases `ds-*`. Los componentes componen, no apilan utilidades. Detalles en STYLES.md.
 - **Smooth scroll:** Lenis. **Reveals on-mount:** CSS puro con `[data-reveal]` + `--reveal-delay`. **Animaciones pesadas:** ninguna librería JS de animación.
@@ -96,8 +96,8 @@ Preloader full-screen monocromo dark, primera carga por sesión.
 
 | Fase | t (s) | Qué pasa |
 |---|---|---|
-| 1 — Letras entran | 0 → 1.0 | `p-u-l-s-a-r ®` lowercase suben desde abajo, stagger 0.1s, 0.5s cada una |
-| 2 — Hold | 1.0 → 2.5 | Wordmark `pulsar®` estable |
+| 1 — Letras entran | 0 → 1.0 | `p-u-l-s-a-r` lowercase suben desde abajo, stagger 0.1s, 0.5s cada una |
+| 2 — Hold | 1.0 → 2.5 | Wordmark `pulsar` estable |
 | 3 — Letras salen | 2.5 → 3.1 | Suben fuera, stagger reverso 0.05s |
 | 4 — Overlay sube | 3.3 → 4.1 | Fondo negro se desliza arriba, revela home |
 | 5 — Hero reveal | 4.1 → 5.0 | Hero hace fade-up con stagger por elemento |

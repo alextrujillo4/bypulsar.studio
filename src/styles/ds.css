@@ -56,24 +56,24 @@
     @apply text-ink-muted;
   }
 
-  /* Mega: hero wordmark — "pulsar®" lowercase, takes full width */
+  /* Mega: hero wordmark — "pulsar" lowercase */
   .ds-heading-mega {
     @apply font-display font-extrabold leading-[0.85] lowercase;
     letter-spacing: -0.06em;
-    font-size: clamp(80px, 18vw, 280px);
+    font-size: clamp(64px, 11vw, 180px);
   }
 
   /* Section title — fabrica-style "projects." */
   .ds-heading-section {
     @apply font-display font-bold leading-[0.95] lowercase;
     letter-spacing: -0.04em;
-    font-size: clamp(56px, 12vw, 200px);
+    font-size: clamp(40px, 7vw, 110px);
   }
 
   /* Smaller heading for sub-sections (cards, member names) */
   .ds-heading-sub {
     @apply font-display font-bold tracking-tight;
-    font-size: clamp(24px, 3vw, 36px);
+    font-size: clamp(20px, 2.4vw, 30px);
   }
 
   .ds-italic {
