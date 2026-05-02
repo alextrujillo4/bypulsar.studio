@@ -161,7 +161,6 @@ const year = new Date().getFullYear();
   }
 
   .footer-mark-wrap {
-    line-height: 0.85;
     user-select: none;
   }
 
@@ -171,8 +170,10 @@ const year = new Date().getFullYear();
     font-weight: 800;
     font-size: clamp(72px, 16vw, 240px);
     letter-spacing: -0.06em;
+    line-height: 0.95;
     color: #0a0a0a;
     text-transform: lowercase;
+    padding-bottom: 0.12em; /* clearance for the "p" descender */
   }
 
   .footer-mark-sub {
@@ -181,9 +182,9 @@ const year = new Date().getFullYear();
     font-weight: 700;
     font-size: clamp(24px, 5vw, 70px);
     letter-spacing: -0.04em;
+    line-height: 1;
     color: #0a0a0a;
     text-transform: lowercase;
-    margin-top: 0.05em;
   }
 
   /* ─── Meta strip ─────────────────────────────────────── */
