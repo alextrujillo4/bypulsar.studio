@@ -65,8 +65,8 @@ export const services: Service[] = [
   {
     num: "004",
     title: "AI assets",
-    lead: "Tu material visual amplificado: photo boost, event identity y video promo.",
-    categories: ["Photo boost", "Event identity", "Video promo", "Slideshows"],
+    lead: "Tu material visual amplificado: mejora de fotos, identidad de evento y video promo.",
+    categories: ["Mejora de fotos", "Identidad de evento", "Video promo", "Slideshows"],
   },
   {
     num: "005",
@@ -112,10 +112,10 @@ export const cadence = {
 } as const;
 
 export const nav = [
-  { label: "Studio", href: "#studio" },
-  { label: "Services", href: "#services" },
-  { label: "Approach", href: "#approach" },
-  { label: "Contact", href: "#contact" },
+  { label: "Estudio", href: "#studio" },
+  { label: "Servicios", href: "#services" },
+  { label: "Proceso", href: "#approach" },
+  { label: "Contacto", href: "#contact" },
 ] as const;
 
 // Imágenes Unsplash curadas — placeholders v1.
@@ -129,7 +129,7 @@ export const heroImage = {
 
 // Hero: lista de servicios destacados (subset condensado para no saturar)
 export const heroServiceList = [
-  "Branding & creative direction",
+  "Branding y dirección creativa",
   "Web profesional",
   "Apps móviles · Flutter",
   "Cadence — SaaS wellness",

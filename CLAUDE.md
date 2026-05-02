@@ -48,8 +48,14 @@ Cadence (el SaaS) es **una de seis líneas de servicio**, no la empresa entera. 
 ### 4. Inglés vs español
 
 - Copy de la web: **español**.
+- Excepciones donde se mantiene inglés (términos de industria sin traducción natural):
+  - **Branding** (no "marca")
+  - **Discovery call**
+  - **SaaS**
+  - Stack técnico: **Flutter, Supabase, Astro, Shopify, Core Web Vitals, SEO, CMS, iOS, Android, MVPs**
+  - Nombre del estudio en el wordmark: **studio** (lowercase, parte del logo)
+- Labels de sección en UI: **español lowercase con punto final** (`estudio.`, `servicios.`, `proceso.`, `contacto.`).
 - Identificadores en código (variables, clases, archivos): **inglés**.
-- Labels de sección en UI: **inglés** ("01 / Studio", "02 / Services") — es estilo, no traducción.
 - Comentarios: cualquiera de los dos.
 
 ### 5. Animaciones

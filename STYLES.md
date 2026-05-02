@@ -207,13 +207,16 @@ Definidas en `tailwind.config.mjs`, `src/styles/globals.css`, `IntroOverlay.astr
 **Patrón de ritmo de página (alternancia black ↔ white):**
 
 ```
-Hero          (ds-ink, full-bleed, foto bg)         ← dark
-Studio        (ds-section, light)                   ← light
-Services      (ds-section-ink-wrap > ds-ink-card)   ← dark, rounded card
-Approach      (ds-section, light)                   ← light
-Contact       (ds-section, light)                   ← light  (puede pasar a ink-card si se necesita más ritmo)
-Footer        (border-t, light)                     ← light
+Header        (sticky, translucent light, dark text)         ← light
+Hero          (ds-section-ink-wrap > rounded card + foto)    ← dark, rounded card
+Studio        (ds-section, light)                            ← light
+Services      (ds-section-ink-wrap > ds-ink-card)            ← dark, rounded card
+Approach      (ds-section, light)                            ← light
+Contact       (ds-section, light)                            ← light  (puede pasar a ink-card si se necesita más ritmo)
+Footer        (border-t, light)                              ← light
 ```
+
+**Hero específico:** no usa la clase `ds-ink-card` directamente porque tiene su propia capa de foto + overlay; replica la signature visual (rounded corners + grain) en su scope. Si en el futuro hay otra sección dark con foto, considerar promover esto a `ds-ink-card-photo` u otra variante.
 
 El bloque de Services usa `<details>`/`<summary>` nativos para el acordeón (primera entrada `open` por defecto, sin JS). Los toggles `+/−` están construidos con `::before`/`::after` pseudo-elementos que rotan al cambiar el atributo `[open]`.
 

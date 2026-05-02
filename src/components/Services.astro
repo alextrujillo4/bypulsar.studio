@@ -8,11 +8,11 @@ import { services, social } from "../config";
       <header class="services-header">
         <p class="services-eyebrow">
           <span class="services-eyebrow-mark" aria-hidden="true">+</span>
-          What we do
+          Qué hacemos
         </p>
 
         <h2 class="services-title">
-          <span>services.</span>
+          <span>servicios.</span>
           <sup class="services-count">({services.length})</sup>
         </h2>
       </header>
@@ -35,7 +35,7 @@ import { services, social } from "../config";
                 <h3 class="service-name">{service.title}</h3>
                 <p class="service-desc">{service.lead}</p>
 
-                <p class="service-cats-label">Categories</p>
+                <p class="service-cats-label">Categorías</p>
                 <ul class="service-cats">
                   {service.categories.slice(0, 4).map((c) => (
                     <li class="service-pill">{c}</li>
@@ -54,7 +54,7 @@ import { services, social } from "../config";
                     rel="noopener"
                     class="service-external"
                   >
-                    Visit cadence.club
+                    Ir a cadence.club
                     <span aria-hidden="true">↗</span>
                   </a>
                 )}
@@ -71,7 +71,7 @@ import { services, social } from "../config";
           rel="noopener"
           class="services-cta-btn"
         >
-          Get started
+          Empezar
         </a>
       </div>
     </div>
