@@ -1,0 +1,62 @@
+/*
+  Pulsar Studio — Global styles.
+  Imported once from Layout.astro. Holds:
+    - Tailwind base/components/utilities directives
+    - the design system layer (ds.css, @layer components)
+    - body / html resets
+    - the [data-reveal] reveal-on-load pattern (gated by intro)
+    - prefers-reduced-motion overrides
+  Component-level styling lives in ds.css. Tokens live in tailwind.config.mjs.
+*/
+
+@import "./ds.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  /* Lenis takes over smooth scroll; native is disabled. */
+  scroll-behavior: auto;
+}
+
+body {
+  background: #0a0a0a;
+  color: #f5f5f5;
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Reveal-on-load utility — gated by intro animation timeline.
+   Intro ends ~4.1s. Use --reveal-delay to stagger within a section. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: ds-fade-up 0.8s ease-out forwards;
+  animation-delay: calc(4.1s + var(--reveal-delay, 0s));
+}
+
+.intro-skip [data-reveal] {
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+@keyframes ds-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

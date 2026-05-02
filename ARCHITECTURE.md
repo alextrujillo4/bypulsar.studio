@@ -3,9 +3,11 @@
 > Documento interno. No es material de cliente.
 > Última actualización: mayo 2026
 
-Este archivo separa **lo que es estable** (la versión definitiva de la marca, el stack y el sistema visual) de **lo que es temporal** (placeholders, IDs pendientes, imágenes de stock que se reemplazarán).
+Este archivo separa **lo que es estable** (marca, stack, operativa) de **lo que es temporal** (placeholders, IDs pendientes, imágenes de stock que se reemplazarán).
 
 Cuando un item temporal se sustituya por su valor real, mover su línea a la sección "Estable" correspondiente y borrarla de "Temporal".
+
+**El sistema visual completo (paleta, tipografía, clases `ds-*`, patrones de composición) vive en [`STYLES.md`](./STYLES.md).** Este archivo solo cubre la arquitectura técnica.
 
 ---
 
@@ -63,51 +65,31 @@ src/
     Layout.astro   SEO, fonts, Lenis init, GA4/Clarity gateados, IntroOverlay, ConsentBanner
   pages/
     index.astro    home — compone todas las secciones
+  styles/
+    globals.css    body/html, [data-reveal], reduced-motion (importa ds.css)
+    ds.css         design system — clases ds-* en @layer components
 public/            assets estáticos
 .github/workflows/
   ci-deploy.yml    CI (build en PR) + Deploy (push a main → Firebase)
 ARCHITECTURE.md    este documento
+STYLES.md          design system completo (tokens, ds-*, patrones)
+CLAUDE.md          contexto para asistentes IA
 ```
 
 ---
 
 ## 3 — Sistema visual
 
-### Estable
+> **El design system completo vive en [`STYLES.md`](./STYLES.md).** Incluye tokens de color/tipografía/spacing, todas las clases `ds-*` (botones, layouts, cards, headings), patrones de composición y la regla del 2 (cuándo promover utilidades a clases).
 
-**Paleta — monocromo:**
+Resumen de alto nivel para arquitectura:
 
-| Token | Hex | Uso |
-|---|---|---|
-| `bg` | `#0A0A0A` | Fondo global |
-| `fg` | `#F5F5F5` | Texto principal |
-| `muted` | `#7A7A7A` | Texto secundario, captions |
-| `line` | `#1F1F1F` | Bordes sutiles, separadores |
-| `card` | `#141414` | Fondo de cards y secciones contrastadas |
+- **Paleta:** monocromo (bg `#0A0A0A` · fg `#F5F5F5` · muted `#7A7A7A` · line `#1F1F1F` · card `#141414`). Sin acento de color en v1.
+- **Tipografía:** Inter (display + body) + IBM Plex Sans (labels uppercase). Cargadas vía Google Fonts.
+- **Centralización:** todo lo visual repetible vive en `src/styles/ds.css` como clases `ds-*`. Los componentes componen, no apilan utilidades. Detalles en STYLES.md.
+- **Smooth scroll:** Lenis. **Reveals on-mount:** CSS puro con `[data-reveal]` + `--reveal-delay`. **Animaciones pesadas:** ninguna librería JS de animación.
 
-Sin acento de color en v1 — el contraste es la fuerza (estilo Fabrica template).
-
-**Tipografía:**
-
-- Display + body: **Inter** (Google Fonts), pesos 400–900
-- Labels y captions: **IBM Plex Sans** uppercase + tracking wide
-- Tamaños display: `clamp(56px, 11vw, 160px)` para H1, `clamp(40px, 6vw, 80px)` para H2
-
-**Border radius:**
-
-- Cards: `rounded-2xl` (16px)
-- Imágenes: `rounded-xl`
-- Buttons / inputs / pills: `rounded-full`
-- Sections: sin radius
-
-**Animaciones:**
-
-- Hovers: Tailwind transitions (`transition-colors`, `transition-transform`, `duration-200/300`)
-- Reveals on-mount: CSS animations puras (atributo `data-reveal` + `--reveal-delay`)
-- Smooth scroll global: Lenis
-- Sin frameworks de animación JS extra
-
-### Intro animation (estable)
+### Intro animation
 
 Preloader full-screen monocromo, primera carga por sesión.
 
@@ -119,11 +101,7 @@ Preloader full-screen monocromo, primera carga por sesión.
 | 4 — Overlay sube | 3.3 → 4.1 | Fondo negro se desliza arriba, revela home |
 | 5 — Hero reveal | 4.1 → 5.0 | Hero hace fade-up con stagger por elemento |
 
-**Detalles:**
-
-- Implementado con **CSS puro** (`--i` + `animation-delay`), sin JS de animación
-- Skip en cargas posteriores: `sessionStorage["pulsar-intro-seen"]`
-- Respeta `@media (prefers-reduced-motion: reduce)` → skip total
+CSS puro (`--i` + `animation-delay`), sin JS. Gateado por `sessionStorage["pulsar-intro-seen"]`. Respeta `prefers-reduced-motion: reduce`.
 
 ---
 
@@ -145,7 +123,7 @@ En `src/config.ts → social`:
 
 - [ ] `email` — sugerencia: `hello@bypulsar.studio`
 - [ ] `instagram` — handle real
-- [ ] `calendly` — URL del Calendly
+- [x] `calendly` — usando `https://calendly.com/inercia/30min` temporalmente. **TODO**: migrar a un slug `pulsar`/`bypulsar` cuando esté disponible para no exponer "inercia" en la URL pública del booking.
 
 ### Imágenes temporales (Unsplash)
 

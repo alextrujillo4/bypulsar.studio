@@ -2,21 +2,16 @@
 import { brand, nav, social } from "../config";
 ---
 
-<header class="header" data-reveal style="--reveal-delay: 0.1s">
-  <div class="container mx-auto max-w-[1440px] px-6 md:px-10 lg:px-16">
+<header class="ds-header" data-reveal style="--reveal-delay: 0.1s">
+  <div class="ds-container">
     <div class="flex items-center justify-between py-6">
-      <a href="/" class="logo" aria-label={brand.name}>
+      <a href="/" class="ds-logo text-lg" aria-label={brand.name}>
         {brand.shortName.toUpperCase()}
       </a>
 
       <nav class="hidden md:flex items-center gap-8 text-sm">
         {nav.map((item) => (
-          <a
-            href={item.href}
-            class="text-muted hover:text-fg transition-colors duration-200"
-          >
-            {item.label}
-          </a>
+          <a href={item.href} class="ds-link">{item.label}</a>
         ))}
       </nav>
 
@@ -24,7 +19,7 @@ import { brand, nav, social } from "../config";
         href={social.calendly}
         target="_blank"
         rel="noopener"
-        class="hidden sm:inline-flex items-center gap-2 rounded-full border border-line bg-card px-5 py-2.5 text-sm hover:bg-fg hover:text-bg transition-colors duration-200"
+        class="ds-btn-pill hidden sm:inline-flex"
       >
         Discovery call
         <span aria-hidden="true">→</span>
@@ -32,22 +27,3 @@ import { brand, nav, social } from "../config";
     </div>
   </div>
 </header>
-
-<style>
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    backdrop-filter: blur(12px);
-    background: rgba(10, 10, 10, 0.6);
-    border-bottom: 1px solid rgba(31, 31, 31, 0.6);
-  }
-
-  .logo {
-    font-family: "Inter", system-ui, sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-    letter-spacing: -0.02em;
-    color: #f5f5f5;
-  }
-</style>

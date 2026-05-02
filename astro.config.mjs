@@ -8,5 +8,5 @@ export default defineConfig({
   site: "https://bypulsar.studio",
   output: "server",
   adapter: node({ mode: "standalone" }),
-  integrations: [tailwind(), icon()],
+  integrations: [tailwind({ applyBaseStyles: false }), icon()],
 });

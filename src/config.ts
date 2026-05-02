@@ -102,8 +102,9 @@ export const social = {
   // TODO: handle real
   instagram: "https://instagram.com/bypulsar.studio",
   instagramHandle: "@bypulsar.studio",
-  // TODO: URL real del Calendly
-  calendly: "https://calendly.com/bypulsar/discovery",
+  // TODO: migrar a un slug `pulsar` o `bypulsar` cuando esté disponible.
+  // Aceptado temporalmente porque la URL es funcional; el slug "inercia" es visible al hacer click.
+  calendly: "https://calendly.com/inercia/30min",
 } as const;
 
 export const cadence = {
