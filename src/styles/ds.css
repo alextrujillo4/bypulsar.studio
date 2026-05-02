@@ -187,9 +187,9 @@
   /* ─── Ink card section ─────────────────────────────────────── */
 
   /* Wrapper that puts a rounded dark "card" inside a light page section.
-     The grain + gradient go inside on .ds-ink-card-surface. */
+     Tight outer margins (Fabrica style — almost edge-to-edge). */
   .ds-section-ink-wrap {
-    @apply mx-auto max-w-[1440px] px-4 md:px-6 lg:px-10 py-6 md:py-10;
+    @apply px-2 md:px-3 lg:px-4 py-3 md:py-4;
   }
 
   .ds-ink-card {
