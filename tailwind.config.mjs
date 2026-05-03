@@ -7,7 +7,8 @@ export default {
     extend: {
       colors: {
         // Default surface — DARK (Pulsar = neutron star, transmission/night vibe)
-        bg: "#0A0A0A",
+        // Body is slightly deeper than the ink-card so the cards visibly lift.
+        bg: "#060606",
         fg: "#F5F5F5",
         muted: "#9A9A9A",
         line: "#1F1F1F",

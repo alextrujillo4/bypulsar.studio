@@ -137,9 +137,21 @@ Construcción favorita para hablar del estudio sin separar al equipo:
 |---|---|---|
 | Hero | (wordmark) | `pulsar` + `studio` |
 | Intro | — | "We're Pulsar." (bright) + tagline (fade) |
-| Services | `+ what we do` · `services.` | "services. (5)" |
+| Services | `+ what we ship` · `services.` | "services. (5)" + sub: "5 ways in. One platform — Cadence ties it together." |
 | Cadence | `+ our SaaS` | "cadence." |
 | Team | `+ the team` | "two of us. one signal — engineering and creative direction tuned to the same frequency." |
+
+### Services — outcome-led titles (problem → solution)
+
+Los servicios están en lenguaje del cliente ("Stand out in a crowded floor.") en lugar de jerga ("Branding & creative direction"). La jerga vive en el lead y en las pills de categorías, no en el título. Cada servicio es un add-on que **se integra a Cadence** — narrativamente la idea es "5 piezas, 1 plataforma".
+
+| # | Outcome title | Plain meaning |
+|---|---|---|
+| 001 | Stand out in a crowded floor. | Branding & creative direction |
+| 002 | A site that runs while you train. | Web design & development |
+| 003 | Your community in their pocket. | Mobile apps |
+| 004 | Visuals that match your energy. | AI photo / event identity / video |
+| 005 | Sell to your community. | Shopify setup |
 
 Contacto vive en el **footer** (no como sección propia). El footer mantiene el ancla `#contact` para que el nav siga funcionando.
 

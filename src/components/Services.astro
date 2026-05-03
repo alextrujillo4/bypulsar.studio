@@ -8,13 +8,18 @@ import { services, social } from "../config";
       <header class="services-header">
         <p class="services-eyebrow">
           <span class="services-eyebrow-mark" aria-hidden="true">+</span>
-          What we do
+          What we ship
         </p>
 
-        <h2 class="services-title">
-          <span>services.</span>
-          <sup class="services-count">({services.length})</sup>
-        </h2>
+        <div class="services-title-wrap">
+          <h2 class="services-title">
+            <span>services.</span>
+            <sup class="services-count">({services.length})</sup>
+          </h2>
+          <p class="services-subtitle">
+            {services.length} ways in. One platform — Cadence ties it together.
+          </p>
+        </div>
       </header>
 
       <ol class="services-list">
@@ -92,6 +97,32 @@ import { services, social } from "../config";
       grid-template-columns: auto 1fr;
       gap: 4rem;
       align-items: end;
+    }
+  }
+
+  .services-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 1024px) {
+    .services-title-wrap {
+      align-items: flex-end;
+    }
+  }
+
+  .services-subtitle {
+    margin: 0;
+    color: #9a9a9a;
+    font-size: clamp(14px, 1.1vw, 16px);
+    font-weight: 500;
+    text-align: left;
+  }
+
+  @media (min-width: 1024px) {
+    .services-subtitle {
+      text-align: right;
     }
   }
 

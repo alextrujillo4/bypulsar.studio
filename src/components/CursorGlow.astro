@@ -1,7 +1,14 @@
 ---
-// Body-wide cursor-following soft light. Sits at z-index -1 so cards cover
-// it (you only see it where the body bg is exposed: Intro section, Footer,
-// gaps between cards). Hue cycles slowly for the "different colors" effect.
+// Body-wide cursor-following soft light. Sits at z-index -1 so cards
+// cover it (only visible where the body bg is exposed: Intro section,
+// Footer, gaps between cards).
+//
+// Visual signature:
+//  - Hue cycles slowly (~24 min full rotation, base 220° = soft blue)
+//  - Position lerped on mousemove (smooth follow)
+//  - Intensity boosts on cursor movement, decays when idle
+//  - A constant heartbeat pulse on the radius (keeps it alive even
+//    when the cursor is still)
 ---
 
 <div id="cursor-glow" aria-hidden="true"></div>
@@ -13,10 +20,21 @@
     z-index: -1;
     pointer-events: none;
     background: radial-gradient(
-      560px circle at var(--cg-x, 50%) var(--cg-y, 50%),
-      hsla(var(--cg-hue, 220), 80%, 70%, 0.07) 0%,
-      hsla(var(--cg-hue, 220), 80%, 70%, 0.025) 25%,
-      transparent 55%
+      calc(var(--cg-radius, 560) * 1px) circle
+        at var(--cg-x, 50%) var(--cg-y, 50%),
+      hsla(
+        var(--cg-hue, 220),
+        85%,
+        70%,
+        calc(var(--cg-intensity, 0.5) * 0.13)
+      ) 0%,
+      hsla(
+        var(--cg-hue, 220),
+        85%,
+        70%,
+        calc(var(--cg-intensity, 0.5) * 0.04)
+      ) 30%,
+      transparent 60%
     );
   }
 
@@ -36,20 +54,49 @@
     let ty = window.innerHeight / 2;
     let cx = tx;
     let cy = ty;
-    let hue = 220; // base: soft blue
+
+    let intensity = 0.5;       // 0..1, decays over time, boosted on move
+    let lastMove = Date.now() - 5000;
+    let hue = 220;
+    let phase = 0;             // heartbeat phase
 
     document.addEventListener("mousemove", (e) => {
       tx = e.clientX;
       ty = e.clientY;
+      lastMove = Date.now();
+      // Intensity ramps up on movement, capped at 1
+      intensity = Math.min(intensity + 0.08, 1);
     });
 
     function loop() {
+      // Smooth position lerp
       cx += (tx - cx) * 0.08;
       cy += (ty - cy) * 0.08;
+
+      // Hue drift — slow, subtle
       hue = (hue + 0.15) % 360;
+
+      // Heartbeat — sin oscillation between 0 and 1, period ~3s
+      phase += 0.018;
+      const beat = (Math.sin(phase) + 1) * 0.5; // 0..1
+
+      // Intensity decays when no movement for a while
+      const idle = Date.now() - lastMove;
+      if (idle > 120) intensity = Math.max(intensity * 0.96, 0.35);
+
+      // Combine intensity + beat: even when idle, the heartbeat pulse
+      // keeps it alive (but quieter)
+      const visualIntensity = (intensity * 0.7) + (beat * 0.3 * intensity);
+
+      // Radius also subtly pulses with the heartbeat
+      const radius = 480 + beat * 140;
+
       root.style.setProperty("--cg-x", cx.toFixed(0) + "px");
       root.style.setProperty("--cg-y", cy.toFixed(0) + "px");
       root.style.setProperty("--cg-hue", hue.toFixed(0));
+      root.style.setProperty("--cg-intensity", visualIntensity.toFixed(3));
+      root.style.setProperty("--cg-radius", radius.toFixed(0));
+
       requestAnimationFrame(loop);
     }
     loop();

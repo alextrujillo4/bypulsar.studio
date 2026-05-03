@@ -193,17 +193,18 @@
     @apply p-2 md:p-3 lg:p-4;
   }
 
-  /* DARK card (hero, services). Slightly lifted from the dark body so it
-     reads as an elevated surface even when both are near-black. */
+  /* DARK card (hero, services). Lifted from the deeper body bg so it
+     visibly sits on top with gradient + grain + a hairline border. */
   .ds-ink-card {
     @apply relative overflow-hidden text-ink-fg;
-    background-color: theme("colors.ink.DEFAULT");
+    background-color: #0e0e0e;
     background-image:
-      radial-gradient(120% 90% at 50% 0%, rgba(80, 80, 80, 0.4), transparent 55%),
-      radial-gradient(80% 60% at 50% 100%, rgba(20, 20, 20, 0.6), transparent 60%),
-      linear-gradient(180deg, #1a1a1a 0%, #0e0e0e 60%);
-    border: 1px solid rgba(245, 245, 245, 0.06);
+      radial-gradient(120% 90% at 50% 0%, rgba(100, 100, 100, 0.45), transparent 55%),
+      radial-gradient(80% 60% at 50% 100%, rgba(20, 20, 20, 0.7), transparent 60%),
+      linear-gradient(180deg, #1d1d1d 0%, #0e0e0e 60%);
+    border: 1px solid rgba(245, 245, 245, 0.09);
     border-radius: clamp(20px, 3vw, 40px);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
   }
 
   .ds-ink-card::before {
