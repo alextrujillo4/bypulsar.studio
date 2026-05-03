@@ -25,17 +25,23 @@
         at var(--cg-x, 50%) var(--cg-y, 50%),
       hsla(
         var(--cg-hue, 230),
-        85%,
-        65%,
-        calc(var(--cg-intensity, 0.4) * 0.10)
+        90%,
+        70%,
+        calc(var(--cg-intensity, 0.5) * 0.28)
       ) 0%,
       hsla(
         var(--cg-hue, 230),
-        85%,
+        90%,
         65%,
-        calc(var(--cg-intensity, 0.4) * 0.025)
-      ) 30%,
-      transparent 60%
+        calc(var(--cg-intensity, 0.5) * 0.10)
+      ) 25%,
+      hsla(
+        var(--cg-hue, 230),
+        90%,
+        60%,
+        calc(var(--cg-intensity, 0.5) * 0.03)
+      ) 45%,
+      transparent 65%
     );
   }
 
@@ -56,7 +62,7 @@
     let cx = tx;
     let cy = ty;
 
-    let intensity = 0.4;       // 0..1, decays over time, boosted on move
+    let intensity = 0.6;       // 0..1, decays over time, boosted on move
     let lastMove = Date.now() - 5000;
     let huePhase = 0;          // drives a sin oscillation between 200 and 260
     let phase = 0;             // heartbeat phase
@@ -65,7 +71,7 @@
       tx = e.clientX;
       ty = e.clientY;
       lastMove = Date.now();
-      intensity = Math.min(intensity + 0.08, 1);
+      intensity = Math.min(intensity + 0.12, 1);
     });
 
     function loop() {
@@ -83,10 +89,10 @@
       const beat = (Math.sin(phase) + 1) * 0.5;
 
       const idle = Date.now() - lastMove;
-      if (idle > 120) intensity = Math.max(intensity * 0.96, 0.3);
+      if (idle > 120) intensity = Math.max(intensity * 0.97, 0.45);
 
       const visualIntensity = (intensity * 0.7) + (beat * 0.3 * intensity);
-      const radius = 460 + beat * 120;
+      const radius = 540 + beat * 160;
 
       root.style.setProperty("--cg-x", cx.toFixed(0) + "px");
       root.style.setProperty("--cg-y", cy.toFixed(0) + "px");

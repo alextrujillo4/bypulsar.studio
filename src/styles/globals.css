@@ -37,6 +37,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Creates a new stacking context so #cursor-glow at z-index:-1 paints
+     ABOVE the body bg but BELOW the page content (cards, sections).
+     Without this, negative z-index sinks behind the body bg and the
+     glow is invisible. */
+  isolation: isolate;
 }
 
 /* Reveal-on-load utility — gated by intro animation timeline.
