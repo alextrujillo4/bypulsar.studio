@@ -1,0 +1,43 @@
+name: Grant public invoker on SSR function
+
+# One-shot workflow: grants Cloud Run Invoker to allUsers on the
+# SSR function so https://bypulsar-studio.web.app stops returning 403.
+# Trigger manually from the Actions tab once after deploys; usually
+# this only needs to run once unless `firebase deploy` recreates the
+# Cloud Run service from scratch.
+#
+# Requires repository secret GCP_SA_KEY: a service account JSON key
+# for an SA with the "Cloud Run Admin" role on bypulsar-studio.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  grant:
+    name: Grant allUsers Cloud Run Invoker
+    runs-on: ubuntu-latest
+    steps:
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: bypulsar-studio
+
+      - name: Add allUsers to roles/run.invoker
+        run: |
+          gcloud run services add-iam-policy-binding ssrbypulsarstudio \
+            --region=europe-west1 \
+            --member="allUsers" \
+            --role="roles/run.invoker" \
+            --project=bypulsar-studio \
+            --quiet
+
+      - name: Verify policy
+        run: |
+          gcloud run services get-iam-policy ssrbypulsarstudio \
+            --region=europe-west1 \
+            --project=bypulsar-studio \
+            --format=json
