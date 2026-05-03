@@ -14,7 +14,7 @@ import { services, social } from "../config";
             <sup class="services-count">({services.length})</sup>
           </h2>
           <p class="services-subtitle">
-            {services.length} ways in. One platform — Cadence ties it together.
+            Mix what fits — each service stands on its own.
           </p>
         </div>
       </header>
@@ -43,6 +43,13 @@ import { services, social } from "../config";
                     </li>
                   )}
                 </ul>
+
+                {service.internal && (
+                  <a href={service.internal} class="service-internal-cta">
+                    {service.cta || "Learn more"}
+                    <span aria-hidden="true">↓</span>
+                  </a>
+                )}
 
                 {service.external && (
                   <a
@@ -309,6 +316,32 @@ import { services, social } from "../config";
     text-decoration: underline;
     text-underline-offset: 4px;
     align-self: flex-start;
+  }
+
+  /* Internal CTA pill — used when a service points to a deeper
+     in-page section (e.g. #cadence). Lenis smooth-scrolls to the
+     anchor; the ↓ arrow signals "scroll down to learn more". */
+  .service-internal-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    background: #f5f5f5;
+    color: #0a0a0a;
+    border-radius: 999px;
+    padding: 0.7rem 1.3rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    align-self: flex-start;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .service-internal-cta:hover {
+    transform: translateY(-1px);
+    background: #ffffff;
   }
 
   /* ─── CTA ─────────────────────────────────────────────── */
