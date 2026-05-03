@@ -340,27 +340,73 @@ import { brand, social, heroServiceList, heroCta } from "../config";
     const hero = document.querySelector(".hero");
     if (!hero) return;
 
-    // Target = cursor offset from hero center, in pixels.
-    // Each .gas-blob multiplies these by its own --pstr to derive
-    // its own translation. Different signs/magnitudes of --pstr
-    // mean the blobs travel different distances and directions
-    // relative to the cursor — that's what makes the cloud "stir".
-    let tx = 0, ty = 0, cx = 0, cy = 0;
+    // Velocity-based push model. The CSS keyframes on each .gas-blob-
+    // inner provide the AMBIENT motion (always running). On top of
+    // that, cursor *deltas* feed a velocity vector — a fast swipe
+    // imparts a strong push that lingers and decays, instead of the
+    // blobs snapping to a target position.
+    //
+    //   vx, vy   velocity (px / frame), damped each frame by FRICTION
+    //   px, py   accumulated displacement (px), decayed each frame by
+    //            POS_DECAY so the gas drifts back toward base when
+    //            untouched (without snapping).
+    //
+    // Tuning:
+    //   PUSH         how much of the raw cursor delta becomes velocity.
+    //   FRICTION     velocity damping per frame. Lower → more inertia.
+    //   POS_DECAY    position decay per frame. Closer to 1 → push
+    //                lingers longer before the gas returns to base.
+    //   POS_CLAMP    cap the displacement so a long fast drag can't
+    //                shove the blobs off-screen.
+    const PUSH = 0.35;
+    const FRICTION = 0.92;
+    const POS_DECAY = 0.975;
+    const POS_CLAMP = 220;
+
+    let vx = 0, vy = 0;
+    let px = 0, py = 0;
+    let lastX = 0, lastY = 0;
+    let pointerInside = false;
+
+    hero.addEventListener("mouseenter", (e) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      pointerInside = true;
+    });
 
     hero.addEventListener("mousemove", (e) => {
-      const r = hero.getBoundingClientRect();
-      tx = e.clientX - (r.left + r.width / 2);
-      ty = e.clientY - (r.top + r.height / 2);
+      if (!pointerInside) {
+        lastX = e.clientX;
+        lastY = e.clientY;
+        pointerInside = true;
+        return;
+      }
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      vx += dx * PUSH;
+      vy += dy * PUSH;
+      lastX = e.clientX;
+      lastY = e.clientY;
     });
-    hero.addEventListener("mouseleave", () => { tx = 0; ty = 0; });
+
+    hero.addEventListener("mouseleave", () => {
+      pointerInside = false;
+      // Don't zero velocity — let inertia carry on so leaving the
+      // hero mid-flick doesn't kill the motion abruptly.
+    });
+
+    function clamp(v, m) {
+      return v > m ? m : v < -m ? -m : v;
+    }
 
     function loop() {
-      // Lerp toward target — fast enough to feel responsive,
-      // slow enough that the gas drags with inertia.
-      cx += (tx - cx) * 0.08;
-      cy += (ty - cy) * 0.08;
-      hero.style.setProperty("--hx", cx.toFixed(1));
-      hero.style.setProperty("--hy", cy.toFixed(1));
+      vx *= FRICTION;
+      vy *= FRICTION;
+      px = clamp((px + vx) * POS_DECAY, POS_CLAMP);
+      py = clamp((py + vy) * POS_DECAY, POS_CLAMP);
+
+      hero.style.setProperty("--hx", px.toFixed(1));
+      hero.style.setProperty("--hy", py.toFixed(1));
       requestAnimationFrame(loop);
     }
     loop();
