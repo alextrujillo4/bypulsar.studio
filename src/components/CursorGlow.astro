@@ -18,7 +18,13 @@
 <div id="cursor-glow" aria-hidden="true"></div>
 <div id="click-pulse-layer" aria-hidden="true"></div>
 
-<style>
+<style is:global>
+  /* is:global is required: .click-pulse spans are created by JS at
+     runtime, so they don't carry Astro's scope attribute. Without
+     is:global, the class rule + keyframes would compile to
+     `.click-pulse[data-astro-cid-XXX]` and the JS-created span would
+     never match. The cursor-glow + click-pulse-layer ids are unique
+     so global scope is safe for them too. */
   #cursor-glow {
     position: fixed;
     inset: 0;
