@@ -87,18 +87,25 @@
       hsla(230, 90%, 65%, 0.15) 35%,
       transparent 70%
     );
-    animation: click-pulse 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* Slower, more controlled expansion — 1.6s with a gentle ease-out
+       so the pulse takes its full second-and-change to bloom and fade
+       (was 1s with an aggressive cubic-bezier that snapped open in
+       the first 200ms and lingered). */
+    animation: click-pulse 1.6s cubic-bezier(0.25, 0.5, 0.3, 1) forwards;
   }
 
   @keyframes click-pulse {
     0% {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
+      opacity: 0.9;
+    }
+    25% {
       opacity: 1;
     }
     100% {
-      width: 720px;
-      height: 720px;
+      width: 640px;
+      height: 640px;
       opacity: 0;
     }
   }
@@ -167,8 +174,8 @@
       el.style.left = x + "px";
       el.style.top = y + "px";
       pulseLayer.appendChild(el);
-      // Auto-remove after the animation completes (1s + small buffer)
-      window.setTimeout(() => el.remove(), 1100);
+      // Auto-remove after the animation completes (1.6s + small buffer)
+      window.setTimeout(() => el.remove(), 1800);
     }
 
     // pointerdown covers both mouse click + touch tap; primary button only.
