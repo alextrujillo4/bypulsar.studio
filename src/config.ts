@@ -51,31 +51,36 @@ export const services: Service[] = [
   {
     num: "001",
     title: "Brand identity",
-    lead: "A full visual identity your members recognize at a glance — logo, palette, typography, manual, applications. Built so it scales as you grow.",
+    lead:
+      "A complete visual identity your members can spot from across the floor — logo, palette, typography, brand manual, applications across digital and print. We start with discovery (what makes your space yours), build the system, and ship a manual you can hand to anyone. Designed to scale: works on a flyer, a Story, a t-shirt or a competition wall.",
     categories: ["Logo", "Palette", "Typography", "Manual", "Applications"],
   },
   {
     num: "002",
     title: "Website",
-    lead: "Fast, SEO-ready, built to convert. Plugs into Cadence so updates happen by chat — no CMS, no admin panels.",
+    lead:
+      "A site built for speed, SEO and real conversions — your booking, your story, your community, all in one place. We design and develop end-to-end, optimized for Core Web Vitals from launch and accessible by default. Plugs into Cadence so day-to-day updates (events, photos, copy) happen by chat — no CMS to learn, no admin panel password to remember.",
     categories: ["Design", "Development", "Core Web Vitals", "SEO", "CMS"],
   },
   {
     num: "003",
     title: "Mobile app",
-    lead: "Native iOS and Android in weeks. Bookings, programs, content — built on Flutter + Supabase, ready to ship.",
+    lead:
+      "A real iOS and Android app in your community's hand in weeks, not months. Built on Flutter (one codebase, both stores) + Supabase (auth, database, storage, realtime). Bookings, training programs, member content, push notifications — focused MVP scope, shipped to TestFlight and Play Console in 14–28 days.",
     categories: ["iOS", "Android", "Flutter", "Supabase", "MVPs"],
   },
   {
     num: "004",
     title: "Photo & video",
-    lead: "Phone snaps turned into pro material, event identity kits people screenshot, promo videos that move. AI-amplified, all on-brand.",
+    lead:
+      "Phone snaps amplified into pro-grade material that doesn't look stock. AI-enhanced photos for class menus and IG carousels, event identity kits people actually screenshot (poster + Stories templates + flyer + email banner), and promo videos that move — slideshow, kinetic-text or generative — sized for every channel. All on-brand, fast turnaround.",
     categories: ["Photo boost", "Event identity", "Video promo", "Slideshows"],
   },
   {
     num: "005",
     title: "Online store",
-    lead: "Merch, packs and event tickets — without a tech headache. Shopify setup with custom theme, payments and inventory ready.",
+    lead:
+      "A Shopify store ready to sell your merch, class packs and event tickets — without a weekend lost to tech setup. We configure payments, set up your first 10 products, install a theme that matches your brand identity (or custom-build one), connect inventory and shipping, and hand it over with a 30-min walkthrough. From zero to first sale in days.",
     categories: ["Shopify", "Theme", "Payments", "Inventory", "Migration"],
   },
 ];

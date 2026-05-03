@@ -12,7 +12,12 @@ import { brand, social } from "../config";
       <span class="intro-fade">{brand.tagline}</span>
     </p>
 
-    <p class="intro-sub">{brand.description}</p>
+    <p class="intro-sub">
+      One signal, two operators. Design and code for the{" "}
+      <span class="intro-emph">clubs</span>,{" "}
+      <span class="intro-emph">gyms</span> and{" "}
+      <span class="intro-emph">communities</span> that move.
+    </p>
 
     <a href={social.calendly} target="_blank" rel="noopener" class="intro-cta">
       Book a call
@@ -76,6 +81,15 @@ import { brand, social } from "../config";
     font-size: clamp(14px, 1.1vw, 16px);
     color: #9a9a9a;
     line-height: 1.55;
+  }
+
+  /* Highlight key audience nouns inside the description without
+     breaking the muted tone of the rest of the sentence. */
+  .intro-emph {
+    color: #d8d8d8;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
   }
 
   .intro-cta {
