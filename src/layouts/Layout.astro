@@ -81,6 +81,28 @@ const canonical = new URL(Astro.url.pathname, brand.url).toString();
           requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
+
+        // Smooth-scroll anchor links (header nav, overlay nav, footer
+        // links) to their target sections. Without this, anchors do
+        // a native instant jump even when Lenis is active for wheel.
+        // Offset accounts for the sticky header (~80px) so the target
+        // section's top doesn't get hidden behind it.
+        document.addEventListener("click", (e) => {
+          const t = e.target as HTMLElement;
+          const link = t.closest('a[href^="#"]') as HTMLAnchorElement | null;
+          if (!link) return;
+          const href = link.getAttribute("href");
+          if (!href || href === "#") return;
+          const dest = document.querySelector(href);
+          if (!dest) return;
+          e.preventDefault();
+          lenis.scrollTo(dest as HTMLElement, {
+            offset: -80,
+            duration: 1.2,
+          });
+          // Update the URL hash without triggering a jump
+          history.pushState(null, "", href);
+        });
       }
     </script>
 

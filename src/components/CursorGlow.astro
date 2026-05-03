@@ -94,6 +94,15 @@
     animation: click-pulse 1.6s cubic-bezier(0.25, 0.5, 0.3, 1) forwards;
   }
 
+  /* On touch devices, pulses are the *only* visible cursor feedback
+     (the persistent halo is hidden on hover:none), so let them last
+     longer and bloom larger — 2.6s feels properly tactile. */
+  @media (hover: none) and (pointer: coarse) {
+    .click-pulse {
+      animation-duration: 2.6s;
+    }
+  }
+
   @keyframes click-pulse {
     0% {
       width: 60px;
@@ -174,8 +183,11 @@
       el.style.left = x + "px";
       el.style.top = y + "px";
       pulseLayer.appendChild(el);
-      // Auto-remove after the animation completes (1.6s + small buffer)
-      window.setTimeout(() => el.remove(), 1800);
+      // Cleanup AFTER both desktop (1.6s) and mobile (2.6s) anims
+      // could have completed. The span is opacity:0 by then anyway,
+      // so an extra second of "invisible orphan" before removal is
+      // harmless and saves us a per-anim listener.
+      window.setTimeout(() => el.remove(), 2800);
     }
 
     // pointerdown covers both mouse click + touch tap; primary button only.
