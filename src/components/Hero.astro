@@ -4,10 +4,29 @@ import { brand, social, heroServiceList, heroCta } from "../config";
 
 <section class="hero-wrap ds-section-card-wrap">
   <div class="hero">
-    {/* Halo-style blue cloud — wrapper handles cursor parallax (JS),
-        inner handles auto-drift (CSS keyframes). */}
-    <div class="hero-cloud-wrap" aria-hidden="true">
-      <div class="hero-cloud"></div>
+    {/* Hero gas — five independent blobs with different parallax
+        strengths (some follow cursor, some go the opposite way) so
+        the cloud "stirs" when the cursor passes through it instead
+        of moving as a single rigid blob. JS sets --hx/--hy on .hero
+        from the cursor position; each blob uses them × its own
+        strength multiplier. Auto-drift on the inner span keeps the
+        gas alive even when the cursor is still. */}
+    <div class="hero-gas" aria-hidden="true">
+      <span class="gas-blob" style="--bx:8%;  --by:12%; --pstr:0.35;  --hue:218; --size:62%; --dur:13s; --delay:0s">
+        <span class="gas-blob-inner"></span>
+      </span>
+      <span class="gas-blob" style="--bx:55%; --by:8%;  --pstr:-0.45; --hue:262; --size:55%; --dur:17s; --delay:-3s">
+        <span class="gas-blob-inner"></span>
+      </span>
+      <span class="gas-blob" style="--bx:30%; --by:48%; --pstr:0.6;   --hue:200; --size:48%; --dur:11s; --delay:-5s">
+        <span class="gas-blob-inner"></span>
+      </span>
+      <span class="gas-blob" style="--bx:62%; --by:42%; --pstr:-0.25; --hue:235; --size:58%; --dur:15s; --delay:-7s">
+        <span class="gas-blob-inner"></span>
+      </span>
+      <span class="gas-blob" style="--bx:18%; --by:62%; --pstr:0.5;   --hue:248; --size:42%; --dur:9s;  --delay:-2s">
+        <span class="gas-blob-inner"></span>
+      </span>
     </div>
 
     <div class="hero-inner">
@@ -71,47 +90,83 @@ import { brand, social, heroServiceList, heroCta } from "../config";
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
   }
 
-  /* Halo-style blue cloud — outer handles cursor parallax,
-     inner handles auto-drift via scale + translate + rotate. */
-  .hero-cloud-wrap {
+  /* ─── Gas (multi-blob cloud) ──────────────────────────── */
+  .hero-gas {
     position: absolute;
-    inset: -15%;
+    inset: -20%;
     pointer-events: none;
     z-index: -2;
-    transform: translate(var(--cloud-tx, 0%), var(--cloud-ty, 0%));
+    /* Single blur on the wrap merges all the blobs into one
+       continuous gas-like field. */
+    filter: blur(70px);
+  }
+
+  /* Each blob:
+       --bx, --by   base position inside the wrap
+       --size       blob diameter (% of wrap)
+       --pstr       parallax strength against cursor (-0.6..0.6)
+       --hue        hsl hue (200..270 = cyan→violet)
+       --dur, --delay   auto-drift timing
+     The OUTER span receives the cursor parallax (translate via
+     --hx/--hy on .hero × --pstr). The INNER span runs the auto-
+     drift keyframes — they compose because they're on different
+     elements. */
+  .gas-blob {
+    position: absolute;
+    top: var(--by);
+    left: var(--bx);
+    width: var(--size);
+    height: var(--size);
+    pointer-events: none;
+    transform: translate3d(
+      calc(var(--hx, 0) * var(--pstr) * 1px),
+      calc(var(--hy, 0) * var(--pstr) * 1px),
+      0
+    );
+    transition: transform 0.05s linear;
     will-change: transform;
   }
 
-  .hero-cloud {
+  .gas-blob-inner {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(45% 40% at 45% 50%, rgba(80, 150, 255, 0.65) 0%, transparent 65%),
-      radial-gradient(35% 30% at 65% 35%, rgba(140, 100, 220, 0.4) 0%, transparent 70%),
-      radial-gradient(30% 35% at 30% 65%, rgba(60, 200, 220, 0.3) 0%, transparent 70%);
-    filter: blur(90px);
-    animation: cloud-morph 14s ease-in-out infinite alternate;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      hsla(var(--hue), 90%, 65%, 0.6) 0%,
+      hsla(var(--hue), 90%, 60%, 0.25) 30%,
+      transparent 65%
+    );
+    animation: gas-drift var(--dur, 14s) ease-in-out var(--delay, 0s) infinite alternate;
     will-change: transform;
   }
 
-  @keyframes cloud-morph {
+  /* Auto-drift — different translate + scale + rotation each cycle.
+     Combined with the parallax on the parent, this makes each blob
+     trace a unique non-circular path. */
+  @keyframes gas-drift {
     0% {
-      transform: translate(-4%, -3%) scale(1) rotate(0deg);
+      transform: translate(-6%, -4%) scale(0.88) rotate(0deg);
     }
-    33% {
-      transform: translate(6%, -5%) scale(1.12) rotate(3deg);
+    25% {
+      transform: translate(8%, -6%) scale(1.12) rotate(3deg);
     }
-    66% {
-      transform: translate(-5%, 7%) scale(0.92) rotate(-2deg);
+    50% {
+      transform: translate(-4%, 9%) scale(1.05) rotate(-2deg);
+    }
+    75% {
+      transform: translate(7%, 5%) scale(0.95) rotate(2.5deg);
     }
     100% {
-      transform: translate(3%, 5%) scale(1.08) rotate(1.5deg);
+      transform: translate(-5%, 6%) scale(1.08) rotate(-1.5deg);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-cloud {
+    .gas-blob,
+    .gas-blob-inner {
       animation: none;
+      transform: none;
     }
   }
 
@@ -283,25 +338,29 @@ import { brand, social, heroServiceList, heroCta } from "../config";
   (function () {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const hero = document.querySelector(".hero");
-    const cloud = hero && hero.querySelector(".hero-cloud-wrap");
-    if (!hero || !cloud) return;
+    if (!hero) return;
 
+    // Target = cursor offset from hero center, in pixels.
+    // Each .gas-blob multiplies these by its own --pstr to derive
+    // its own translation. Different signs/magnitudes of --pstr
+    // mean the blobs travel different distances and directions
+    // relative to the cursor — that's what makes the cloud "stir".
     let tx = 0, ty = 0, cx = 0, cy = 0;
-    let inside = false;
 
     hero.addEventListener("mousemove", (e) => {
       const r = hero.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width - 0.5) * 8;  // % range
-      ty = ((e.clientY - r.top) / r.height - 0.5) * 8;
-      inside = true;
+      tx = e.clientX - (r.left + r.width / 2);
+      ty = e.clientY - (r.top + r.height / 2);
     });
     hero.addEventListener("mouseleave", () => { tx = 0; ty = 0; });
 
     function loop() {
-      cx += (tx - cx) * 0.05;
-      cy += (ty - cy) * 0.05;
-      cloud.style.setProperty("--cloud-tx", cx.toFixed(2) + "%");
-      cloud.style.setProperty("--cloud-ty", cy.toFixed(2) + "%");
+      // Lerp toward target — fast enough to feel responsive,
+      // slow enough that the gas drags with inertia.
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      hero.style.setProperty("--hx", cx.toFixed(1));
+      hero.style.setProperty("--hy", cy.toFixed(1));
       requestAnimationFrame(loop);
     }
     loop();
