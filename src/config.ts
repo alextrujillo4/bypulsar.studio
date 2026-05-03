@@ -43,39 +43,39 @@ export type Service = {
   external?: string;
 };
 
-// Services — outcome-led titles in plain client language; technical
-// terms live in the lead and categories (pills). Each service is a
-// Cadence add-on; Cadence is the platform that ties them together.
-// See WORDING.md "voice" section.
+// Services — short, plain titles (what it IS) + leads explaining the
+// value (why you'd want it). Technical terms live in the categories
+// pills. Each service is a Cadence add-on; Cadence is the platform
+// that ties them together. See WORDING.md.
 export const services: Service[] = [
   {
     num: "001",
-    title: "Stand out in a crowded floor.",
-    lead: "Most fitness brands look identical from across the room. We design an identity your members recognize at a glance — logo, palette, typography, full system.",
-    categories: ["Branding", "Logo", "Identity", "Palette", "Typography", "Manual"],
+    title: "Brand identity",
+    lead: "A full visual identity your members recognize at a glance — logo, palette, typography, manual, applications. Built so it scales as you grow.",
+    categories: ["Logo", "Palette", "Typography", "Manual", "Applications"],
   },
   {
     num: "002",
-    title: "A site that runs while you train.",
+    title: "Website",
     lead: "Fast, SEO-ready, built to convert. Plugs into Cadence so updates happen by chat — no CMS, no admin panels.",
-    categories: ["Web design", "Development", "Core Web Vitals", "SEO", "CMS"],
+    categories: ["Design", "Development", "Core Web Vitals", "SEO", "CMS"],
   },
   {
     num: "003",
-    title: "Your community in their pocket.",
-    lead: "A native app for iOS and Android in weeks. Bookings, programs, content — built on Flutter + Supabase.",
+    title: "Mobile app",
+    lead: "Native iOS and Android in weeks. Bookings, programs, content — built on Flutter + Supabase, ready to ship.",
     categories: ["iOS", "Android", "Flutter", "Supabase", "MVPs"],
   },
   {
     num: "004",
-    title: "Visuals that match your energy.",
-    lead: "Phone snaps turned into pro material, event flyers people screenshot, promo videos that move. All on-brand, all fast.",
+    title: "Photo & video",
+    lead: "Phone snaps turned into pro material, event identity kits people screenshot, promo videos that move. AI-amplified, all on-brand.",
     categories: ["Photo boost", "Event identity", "Video promo", "Slideshows"],
   },
   {
     num: "005",
-    title: "Sell to your community.",
-    lead: "Merch, packs, event tickets — without a tech headache. Shopify setup with custom theme, payments and inventory ready to ship.",
+    title: "Online store",
+    lead: "Merch, packs and event tickets — without a tech headache. Shopify setup with custom theme, payments and inventory ready.",
     categories: ["Shopify", "Theme", "Payments", "Inventory", "Migration"],
   },
 ];

@@ -141,17 +141,19 @@ Construcción favorita para hablar del estudio sin separar al equipo:
 | Cadence | `+ our SaaS` | "cadence." |
 | Team | `+ the team` | "two of us. one signal — engineering and creative direction tuned to the same frequency." |
 
-### Services — outcome-led titles (problem → solution)
+### Services — short clear titles + value-led leads
 
-Los servicios están en lenguaje del cliente ("Stand out in a crowded floor.") en lugar de jerga ("Branding & creative direction"). La jerga vive en el lead y en las pills de categorías, no en el título. Cada servicio es un add-on que **se integra a Cadence** — narrativamente la idea es "5 piezas, 1 plataforma".
+Los **titulares** son cortos y dicen LO QUE ES (no jerga, no metáforas). El **lead** es donde aparece el valor / qué problema resuelve. La jerga técnica vive en las pills de categorías. Cada servicio es un add-on que **se integra a Cadence** — narrativa "5 piezas, 1 plataforma".
 
-| # | Outcome title | Plain meaning |
+| # | Title (lo que es) | Lead (el valor) |
 |---|---|---|
-| 001 | Stand out in a crowded floor. | Branding & creative direction |
-| 002 | A site that runs while you train. | Web design & development |
-| 003 | Your community in their pocket. | Mobile apps |
-| 004 | Visuals that match your energy. | AI photo / event identity / video |
-| 005 | Sell to your community. | Shopify setup |
+| 001 | Brand identity | "Recognized at a glance — logo, palette, typography, manual, applications. Built so it scales as you grow." |
+| 002 | Website | "Fast, SEO-ready, built to convert. Plugs into Cadence so updates happen by chat — no CMS, no admin panels." |
+| 003 | Mobile app | "Native iOS and Android in weeks. Bookings, programs, content — built on Flutter + Supabase." |
+| 004 | Photo & video | "Phone snaps turned into pro material, event identity kits people screenshot, promo videos that move." |
+| 005 | Online store | "Merch, packs and event tickets — without a tech headache. Shopify setup, payments, inventory ready." |
+
+**Iteración previa fallida** (registrada para no repetirla): titulares 100% poéticos tipo "Stand out in a crowded floor" perdieron claridad. La regla: **el título debe ser inmediatamente legible**; la voz vive en lead + microcopy, no en headers de servicios.
 
 Contacto vive en el **footer** (no como sección propia). El footer mantiene el ancla `#contact` para que el nav siga funcionando.
 
