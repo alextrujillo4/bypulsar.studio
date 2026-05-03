@@ -138,7 +138,8 @@ Construcción favorita para hablar del estudio sin separar al equipo:
 | Studio | `studio.` | "Two of us. One signal." (bright + fade variant) |
 | Services | `services.` | "what we do." |
 | Approach | `approach.` | "how we work." |
-| Contact | `contact.` | "let's build together." |
+
+Contacto vive en el **footer** (no como sección propia). El footer mantiene el ancla `#contact` para que el nav siga funcionando.
 
 ### Footer columns
 

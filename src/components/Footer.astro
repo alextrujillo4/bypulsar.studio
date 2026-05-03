@@ -5,12 +5,22 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="footer-inner">
-    {/* Top — 3 columnas: email | navegación | social */}
+    {/* Top — 3 columnas: email + CTA | navigation | social */}
     <div class="footer-grid-top">
-      <div class="footer-contact">
+      <div id="contact" class="footer-contact">
         <a href={`mailto:${social.email}`} class="footer-email">
           <span class="footer-email-mark" aria-hidden="true">+</span>
           {social.email}
+        </a>
+
+        <a
+          href={social.calendly}
+          target="_blank"
+          rel="noopener"
+          class="footer-cta"
+        >
+          Discovery call
+          <span aria-hidden="true">→</span>
         </a>
       </div>
 
@@ -88,6 +98,13 @@ const year = new Date().getFullYear();
     }
   }
 
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
   .footer-email {
     display: inline-flex;
     align-items: baseline;
@@ -111,6 +128,24 @@ const year = new Date().getFullYear();
   .footer-email-mark {
     font-size: 0.7em;
     text-decoration: none;
+  }
+
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #0a0a0a;
+    color: #f5f5f5;
+    border-radius: 999px;
+    padding: 0.7rem 1.4rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background 0.2s ease;
+  }
+
+  .footer-cta:hover {
+    background: #1f1f1f;
   }
 
   .footer-col-title {

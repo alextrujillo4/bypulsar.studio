@@ -216,9 +216,10 @@ Hero          (ds-section-card-wrap > rounded ink + foto)    ← INK card
 Studio        (ds-section-card-wrap > ds-white-card)         ← WHITE card
 Services      (ds-section-card-wrap > ds-ink-card)           ← INK card
 Approach      (ds-section, light bg)                         ← light bg (no card)
-Contact       (ds-section, light bg)                         ← light bg (no card)
-Footer        (light bg, full width, big wordmark)           ← light bg
+Footer        (light bg, full width, big wordmark)           ← light bg + CTA
 ```
+
+Contacto NO tiene sección propia — vive en la primera columna del footer (email + Discovery call CTA pill). El footer mantiene `id="contact"` para que el ancla del nav (`#contact`) siga funcionando.
 
 **Reglas:**
 - Las **cards** (ink o white) son bloques destacados de contenido. Hero, Studio y Services las usan.
