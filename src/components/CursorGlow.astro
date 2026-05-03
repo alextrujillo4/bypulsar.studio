@@ -4,11 +4,12 @@
 // Footer, gaps between cards).
 //
 // Visual signature:
-//  - Hue cycles slowly (~24 min full rotation, base 220° = soft blue)
+//  - Hue locked to a cool range (200°–260° — blue → violet) so the
+//    glow never warms into yellow/orange and tints the bg cream.
 //  - Position lerped on mousemove (smooth follow)
 //  - Intensity boosts on cursor movement, decays when idle
-//  - A constant heartbeat pulse on the radius (keeps it alive even
-//    when the cursor is still)
+//  - Constant heartbeat pulse on the radius keeps it alive even
+//    when the cursor is still
 ---
 
 <div id="cursor-glow" aria-hidden="true"></div>
@@ -23,16 +24,16 @@
       calc(var(--cg-radius, 560) * 1px) circle
         at var(--cg-x, 50%) var(--cg-y, 50%),
       hsla(
-        var(--cg-hue, 220),
+        var(--cg-hue, 230),
         85%,
-        70%,
-        calc(var(--cg-intensity, 0.5) * 0.13)
+        65%,
+        calc(var(--cg-intensity, 0.4) * 0.10)
       ) 0%,
       hsla(
-        var(--cg-hue, 220),
+        var(--cg-hue, 230),
         85%,
-        70%,
-        calc(var(--cg-intensity, 0.5) * 0.04)
+        65%,
+        calc(var(--cg-intensity, 0.4) * 0.025)
       ) 30%,
       transparent 60%
     );
@@ -55,16 +56,15 @@
     let cx = tx;
     let cy = ty;
 
-    let intensity = 0.5;       // 0..1, decays over time, boosted on move
+    let intensity = 0.4;       // 0..1, decays over time, boosted on move
     let lastMove = Date.now() - 5000;
-    let hue = 220;
+    let huePhase = 0;          // drives a sin oscillation between 200 and 260
     let phase = 0;             // heartbeat phase
 
     document.addEventListener("mousemove", (e) => {
       tx = e.clientX;
       ty = e.clientY;
       lastMove = Date.now();
-      // Intensity ramps up on movement, capped at 1
       intensity = Math.min(intensity + 0.08, 1);
     });
 
@@ -73,23 +73,20 @@
       cx += (tx - cx) * 0.08;
       cy += (ty - cy) * 0.08;
 
-      // Hue drift — slow, subtle
-      hue = (hue + 0.15) % 360;
+      // Hue oscillates between 200 (cyan-ish) and 260 (violet) —
+      // never crosses into warm yellow/orange/red territory
+      huePhase += 0.005;
+      const hue = 230 + Math.sin(huePhase) * 30;
 
       // Heartbeat — sin oscillation between 0 and 1, period ~3s
       phase += 0.018;
-      const beat = (Math.sin(phase) + 1) * 0.5; // 0..1
+      const beat = (Math.sin(phase) + 1) * 0.5;
 
-      // Intensity decays when no movement for a while
       const idle = Date.now() - lastMove;
-      if (idle > 120) intensity = Math.max(intensity * 0.96, 0.35);
+      if (idle > 120) intensity = Math.max(intensity * 0.96, 0.3);
 
-      // Combine intensity + beat: even when idle, the heartbeat pulse
-      // keeps it alive (but quieter)
       const visualIntensity = (intensity * 0.7) + (beat * 0.3 * intensity);
-
-      // Radius also subtly pulses with the heartbeat
-      const radius = 480 + beat * 140;
+      const radius = 460 + beat * 120;
 
       root.style.setProperty("--cg-x", cx.toFixed(0) + "px");
       root.style.setProperty("--cg-y", cy.toFixed(0) + "px");

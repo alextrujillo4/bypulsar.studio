@@ -6,9 +6,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Default surface — DARK (Pulsar = neutron star, transmission/night vibe)
-        // Body is slightly deeper than the ink-card so the cards visibly lift.
-        bg: "#060606",
+        // Default surface — pure black. Cards (ink + white) lift visibly
+        // against this absolute base.
+        bg: "#000000",
         fg: "#F5F5F5",
         muted: "#9A9A9A",
         line: "#1F1F1F",

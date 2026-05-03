@@ -22,10 +22,11 @@
 html {
   /* Lenis takes over smooth scroll; native is disabled. */
   scroll-behavior: auto;
+  background: #000000;
 }
 
 body {
-  background: #060606;
+  background: #000000;
   color: #f5f5f5;
   font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
