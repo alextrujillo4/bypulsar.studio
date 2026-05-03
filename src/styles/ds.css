@@ -193,14 +193,16 @@
     @apply p-2 md:p-3 lg:p-4;
   }
 
-  /* DARK card (hero, services) */
+  /* DARK card (hero, services). Slightly lifted from the dark body so it
+     reads as an elevated surface even when both are near-black. */
   .ds-ink-card {
     @apply relative overflow-hidden text-ink-fg;
     background-color: theme("colors.ink.DEFAULT");
     background-image:
-      radial-gradient(120% 90% at 50% 0%, rgba(60, 60, 60, 0.35), transparent 55%),
+      radial-gradient(120% 90% at 50% 0%, rgba(80, 80, 80, 0.4), transparent 55%),
       radial-gradient(80% 60% at 50% 100%, rgba(20, 20, 20, 0.6), transparent 60%),
-      linear-gradient(180deg, #131313 0%, #0a0a0a 60%);
+      linear-gradient(180deg, #1a1a1a 0%, #0e0e0e 60%);
+    border: 1px solid rgba(245, 245, 245, 0.06);
     border-radius: clamp(20px, 3vw, 40px);
   }
 

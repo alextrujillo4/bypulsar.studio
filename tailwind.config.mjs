@@ -6,14 +6,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Light surface — default page bg (Fabrica-style off-white)
-        bg: "#F0F0F0",
-        fg: "#0A0A0A",
-        muted: "#7A7A7A",
-        line: "#E5E5E5",
-        card: "#FFFFFF",
+        // Default surface — DARK (Pulsar = neutron star, transmission/night vibe)
+        bg: "#0A0A0A",
+        fg: "#F5F5F5",
+        muted: "#9A9A9A",
+        line: "#1F1F1F",
+        card: "#141414",
 
-        // Dark surface — hero, dark CTA blocks. "ink" prefix.
+        // "ink" namespace kept (used by ds-ink-card, ds-btn-primary-dark, etc.).
+        // Now mirrors the base tokens since the whole site is dark; the ink-card
+        // visual still pops thanks to its gradient + grain ::before overlay.
         ink: {
           DEFAULT: "#0A0A0A",
           fg: "#F5F5F5",

@@ -42,27 +42,25 @@ El sitio tiene **dos superficies**:
 
 Definidos en `tailwind.config.mjs`.
 
-### Light surface
+### Default surface (DARK)
 
 | Token | Hex | Uso |
 |---|---|---|
-| `bg` | `#F0F0F0` | Fondo body / secciones light |
-| `fg` | `#0A0A0A` | Texto principal |
-| `muted` | `#7A7A7A` | Texto secundario, captions |
-| `line` | `#E5E5E5` | Bordes, separadores |
-| `card` | `#FFFFFF` | Cards blancas sobre off-white |
+| `bg` | `#0A0A0A` | Fondo body |
+| `fg` | `#F5F5F5` | Texto principal |
+| `muted` | `#9A9A9A` | Texto secundario, captions |
+| `line` | `#1F1F1F` | Bordes, separadores |
+| `card` | `#141414` | Cards elevadas sobre body dark |
 
-### Dark surface ("ink")
+### "ink" namespace (alias)
 
-| Token | Hex | Uso |
-|---|---|---|
-| `ink` (DEFAULT) | `#0A0A0A` | Fondo del hero / bloques dark |
-| `ink-fg` | `#F5F5F5` | Texto sobre dark |
-| `ink-muted` | `#9A9A9A` | Texto secundario sobre dark |
-| `ink-line` | `#1F1F1F` | Bordes sobre dark |
-| `ink-card` | `#141414` | Cards oscuras sobre dark |
+Mismos valores que las base tokens — se mantiene el namespace porque `ds-ink-card`, `ds-btn-primary-dark`, etc. lo referencian. La diferenciación visual de las ink cards viene del **gradient + grain ::before**, no del color flat.
 
-**Sin acento de color.** El contraste dual (luz+oscuro) es la fuerza.
+### White card (contraste deliberado)
+
+`ds-white-card` usa `#FFFFFF` hardcoded. Es un **momento de luz** intencional contra el body dark — único lugar de la home con texto oscuro sobre fondo claro (sección Studio).
+
+**Sin acento de color.** El contraste dark/elevated dark/white es la fuerza.
 
 ---
 

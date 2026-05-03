@@ -84,7 +84,7 @@ CLAUDE.md          contexto para asistentes IA
 
 Resumen de alto nivel para arquitectura:
 
-- **Paleta dual:** light `#F0F0F0` por defecto + dark `#0A0A0A` (token `ink`) para el hero y futuros bloques CTA oscuros. Sin acento de color.
+- **Paleta dark-default:** body `#0A0A0A`, fg `#F5F5F5`, cards elevadas `#141414`. White card explícito (`#FFFFFF`) en la sección Studio como contraste deliberado. Sin acento de color.
 - **Marca pública:** wordmark lowercase (`pulsar`).
 - **Tipografía:** Inter (display + body) + IBM Plex Sans (labels uppercase). Cargadas vía Google Fonts. Títulos de sección lowercase con punto final (`studio.`, `services.`).
 - **Centralización:** todo lo visual repetible vive en `src/styles/ds.css` como clases `ds-*`. Los componentes componen, no apilan utilidades. Detalles en STYLES.md.
