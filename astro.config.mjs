@@ -7,6 +7,6 @@ import icon from "astro-icon";
 export default defineConfig({
   site: "https://bypulsar.studio",
   output: "server",
-  adapter: node({ mode: "standalone" }),
+  adapter: node({ mode: "middleware" }),
   integrations: [tailwind({ applyBaseStyles: false }), icon()],
 });
