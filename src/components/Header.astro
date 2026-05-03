@@ -12,7 +12,7 @@ import { brand, nav, social } from "../config";
       <button
         type="button"
         class="header-burger"
-        aria-label="Abrir menú"
+        aria-label="Open menu"
         aria-controls="nav-overlay"
         aria-expanded="false"
         data-burger
@@ -33,7 +33,7 @@ import { brand, nav, social } from "../config";
     <button
       type="button"
       class="header-burger header-burger--open"
-      aria-label="Cerrar menú"
+      aria-label="Close menu"
       data-burger-close
     >
       <span></span>
@@ -41,9 +41,9 @@ import { brand, nav, social } from "../config";
     </button>
   </div>
 
-  <nav class="nav-overlay-list" aria-label="Navegación principal">
+  <nav class="nav-overlay-list" aria-label="Main navigation">
     <ul>
-      <li><a href="/" data-nav-close>inicio</a></li>
+      <li><a href="/" data-nav-close>home</a></li>
       {nav.map((item) => (
         <li>
           <a href={item.href} data-nav-close>{item.label.toLowerCase()}</a>

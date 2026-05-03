@@ -13,9 +13,10 @@ Web pública de **Pulsar Studio** — `bypulsar.studio`. Estudio digital boutiqu
 
 1. **[`ARCHITECTURE.md`](./ARCHITECTURE.md)** — marca, stack, operativa, lo estable vs lo temporal, IDs pendientes, deploy, ramas.
 2. **[`STYLES.md`](./STYLES.md)** — design system completo: tokens, clases `ds-*`, patrones de composición, regla del 2.
-3. **`src/config.ts`** — single source of truth para brand, team, services, social, tracking. Si cambia copy, cambia aquí.
+3. **[`WORDING.md`](./WORDING.md)** — voz, léxico (preferido y a evitar), reglas de copy, "one signal, two operators". Si vas a escribir o cambiar copy público, **abre esto primero**.
+4. **`src/config.ts`** — single source of truth para brand, team, services, social, tracking. Si cambia copy, cambia aquí.
 
-Si vas a tocar código, abre los tres.
+Si vas a tocar código, abre los cuatro.
 
 ## Reglas absolutas (no negociables)
 
@@ -45,18 +46,16 @@ Cadence (el SaaS) es **una de seis líneas de servicio**, no la empresa entera. 
 - Última: `<style>` scoped solo si Tailwind no llega.
 - **Si una combinación Tailwind aparece 2+ veces → promoverla a `ds-*`** y documentarla en `STYLES.md`.
 
-### 4. Inglés vs español
+### 4. Voz y idioma
 
-- Copy de la web: **español**.
-- Excepciones donde se mantiene inglés (términos de industria sin traducción natural):
-  - **Branding** (no "marca")
-  - **Discovery call**
-  - **SaaS**
-  - Stack técnico: **Flutter, Supabase, Astro, Shopify, Core Web Vitals, SEO, CMS, iOS, Android, MVPs**
-  - Nombre del estudio en el wordmark: **studio** (lowercase, parte del logo)
-- Labels de sección en UI: **español lowercase con punto final** (`estudio.`, `servicios.`, `proceso.`, `contacto.`).
-- Identificadores en código (variables, clases, archivos): **inglés**.
-- Comentarios: cualquiera de los dos.
+**Fuente de verdad: [`WORDING.md`](./WORDING.md)**. Resumen rápido:
+
+- **Inglés** como default para copy público (marca, hero, secciones, CTAs, footer).
+- Voz: **dinámica · espacial · retro 90s · una unidad** (Ela + Alex = "one signal", nunca dos cosas separadas).
+- Léxico preferido: signal, frequency, pulse, motion, broadcast, tune, operators, communities that move.
+- **Evitar:** "wellness", "agency", "synergy/leverage/unlock", "passionate about...", "Ela diseña / Alex programa".
+- Términos técnicos siempre en inglés: Branding, Discovery call, SaaS, Flutter, Supabase, Astro, Shopify, Core Web Vitals, SEO, CMS, iOS, Android, MVPs.
+- Identificadores en código: inglés. Comentarios: cualquiera de los dos.
 
 ### 5. Animaciones
 

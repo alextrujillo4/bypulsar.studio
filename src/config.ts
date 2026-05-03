@@ -8,9 +8,9 @@ export const brand = {
   domain: "bypulsar.studio",
   url: "https://bypulsar.studio",
   city: "Madrid",
-  tagline: "Diseño y código para marcas que mueven cuerpos.",
+  tagline: "Design and code for brands in motion.",
   description:
-    "Estudio digital boutique especializado en marcas wellness — running, yoga, gym, padel, outdoor.",
+    "One signal, two operators. Design and code for the clubs, gyms and communities that move — running, yoga, padel, outdoor.",
 } as const;
 
 export type TeamMember = {
@@ -24,13 +24,13 @@ export const team: TeamMember[] = [
   {
     name: "Alexandro Trujillo",
     role: "Engineering",
-    bio: "8 años en Flutter y mobile. Arquitectura, apps y plataformas SaaS.",
+    bio: "8 years building in Flutter and mobile. Architecture, apps and SaaS platforms.",
     initials: "AT",
   },
   {
     name: "Ela Reyna",
     role: "Creative direction",
-    bio: "Branding, identidad visual y contenido. La que le mete alma.",
+    bio: "Branding, visual identity and content. Tunes the signal.",
     initials: "ER",
   },
 ];
@@ -46,39 +46,39 @@ export type Service = {
 export const services: Service[] = [
   {
     num: "001",
-    title: "Branding y dirección creativa",
-    lead: "Identidad visual completa que conecta con tu comunidad. Logo, sistema y manual.",
-    categories: ["Logo", "Identidad", "Paleta", "Tipografía", "Manual", "Aplicaciones"],
+    title: "Branding & creative direction",
+    lead: "A full visual identity tuned to your community. Logo, system, manual.",
+    categories: ["Logo", "Identity", "Palette", "Typography", "Manual", "Applications"],
   },
   {
     num: "002",
-    title: "Web profesional",
-    lead: "Sitios rápidos, SEO-ready y con alma. Pensados para conversión real.",
-    categories: ["Diseño", "Desarrollo", "Core Web Vitals", "SEO", "CMS"],
+    title: "Web design & development",
+    lead: "Sites that move fast and feel right. SEO-ready, built for the real conversions.",
+    categories: ["Design", "Development", "Core Web Vitals", "SEO", "CMS"],
   },
   {
     num: "003",
-    title: "Apps móviles y MVPs",
-    lead: "Flutter + Supabase. Producto real en semanas. iOS y Android desde el primer release.",
+    title: "Mobile apps & MVPs",
+    lead: "Flutter + Supabase. Product in your hand in weeks. iOS and Android from day one.",
     categories: ["iOS", "Android", "Flutter", "Supabase", "MVPs"],
   },
   {
     num: "004",
     title: "AI assets",
-    lead: "Tu material visual amplificado: mejora de fotos, identidad de evento y video promo.",
-    categories: ["Mejora de fotos", "Identidad de evento", "Video promo", "Slideshows"],
+    lead: "Your visual material amplified — photo boost, event identity, video promo.",
+    categories: ["Photo boost", "Event identity", "Video promo", "Slideshows"],
   },
   {
     num: "005",
     title: "Shopify setup",
-    lead: "Tienda lista para vender en días. Setup, configuración y tema personalizado.",
-    categories: ["Setup", "Productos", "Pagos", "Tema", "Migración"],
+    lead: "A store ready to ship in days. Setup, payments, custom theme.",
+    categories: ["Setup", "Products", "Payments", "Theme", "Migration"],
   },
   {
     num: "006",
     title: "Cadence",
-    lead: "SaaS propio para comunidades wellness. Tu web profesional, gestionada por chat.",
-    categories: ["SaaS", "Multi-tenant", "Eventos", "Galería", "Tienda", "AI chat"],
+    lead: "Our SaaS for active communities. A professional site you run by chat.",
+    categories: ["SaaS", "Multi-tenant", "Events", "Gallery", "Store", "AI chat"],
     external: "https://cadence.club",
   },
 ];
@@ -90,10 +90,10 @@ export type ApproachStep = {
 };
 
 export const approach: ApproachStep[] = [
-  { step: "01", title: "Discovery", desc: "Llamada de 30 min. Sin venta, solo entender." },
-  { step: "02", title: "Propuesta", desc: "Una página, en 48 horas." },
-  { step: "03", title: "Build", desc: "14 días. Tú revisas, nosotros ejecutamos." },
-  { step: "04", title: "Go live", desc: "Autónomo desde el día 1. Check-in mensual." },
+  { step: "01", title: "Discovery", desc: "30-min call. No pitch, just listening." },
+  { step: "02", title: "Proposal", desc: "One page, in 48 hours." },
+  { step: "03", title: "Build", desc: "14 days. We ship, you review." },
+  { step: "04", title: "Go live", desc: "Autonomous from day one. Monthly check-ins." },
 ];
 
 export const social = {
@@ -112,10 +112,10 @@ export const cadence = {
 } as const;
 
 export const nav = [
-  { label: "Estudio", href: "#studio" },
-  { label: "Servicios", href: "#services" },
-  { label: "Proceso", href: "#approach" },
-  { label: "Contacto", href: "#contact" },
+  { label: "Studio", href: "#studio" },
+  { label: "Services", href: "#services" },
+  { label: "Approach", href: "#approach" },
+  { label: "Contact", href: "#contact" },
 ] as const;
 
 // Imágenes Unsplash curadas — placeholders v1.
@@ -129,17 +129,15 @@ export const heroImage = {
 
 // Hero: lista de servicios destacados (subset condensado para no saturar)
 export const heroServiceList = [
-  "Branding y dirección creativa",
-  "Web profesional",
-  "Apps móviles · Flutter",
-  "Cadence — SaaS wellness",
+  "Branding & creative direction",
+  "Web design & development",
+  "Mobile apps · Flutter",
+  "Cadence — our SaaS",
 ] as const;
 
-// Hero CTA card (estilo Fabrica "Lauren Thompson"). Adaptado a un equipo de 2 sin fotos reales.
-export const heroCtaCard = {
-  badge: "Hablemos",
-  who: "Pulsar Studio",
-  cta: "Discovery call",
+// Hero CTA — simple rounded pill with a single label. Clicks → Calendly.
+export const heroCta = {
+  label: "Book a call",
 } as const;
 
 // IDs externos — placeholders. Mover a estable en ARCHITECTURE.md cuando sean reales.
