@@ -8,11 +8,11 @@ import { brand, social } from "../config";
 
   <div class="intro-inner">
     <p class="intro-text">
-      <span class="intro-bright">We're {brand.shortName}.</span>{" "}
-      <span class="intro-fade">{brand.tagline}</span>
+      <span class="intro-bright" data-i18n="intro.bright">We're {brand.shortName}.</span>{" "}
+      <span class="intro-fade" data-i18n="intro.tagline">{brand.tagline}</span>
     </p>
 
-    <p class="intro-sub">
+    <p class="intro-sub" data-i18n-html="intro.sub.html">
       One signal, two operators. Design and code for the{" "}
       <span class="intro-emph">clubs</span>,{" "}
       <span class="intro-emph">gyms</span> and{" "}
@@ -20,7 +20,7 @@ import { brand, social } from "../config";
     </p>
 
     <a href={social.calendly} target="_blank" rel="noopener" class="intro-cta">
-      Book a call
+      <span data-i18n="intro.cta">Book a call</span>
       <span aria-hidden="true">→</span>
     </a>
   </div>

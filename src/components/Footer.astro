@@ -19,23 +19,23 @@ const year = new Date().getFullYear();
           rel="noopener"
           class="footer-cta"
         >
-          Discovery call
+          <span data-i18n="footer.cta">Discovery call</span>
           <span aria-hidden="true">→</span>
         </a>
       </div>
 
       <div class="footer-col">
-        <h4 class="footer-col-title">Navigation</h4>
+        <h4 class="footer-col-title" data-i18n="footer.nav.label">Navigation</h4>
         <ul>
-          <li><a href="/">Home</a></li>
+          <li><a href="/" data-i18n="footer.home">Home</a></li>
           {nav.map((item) => (
-            <li><a href={item.href}>{item.label}</a></li>
+            <li><a href={item.href} data-i18n={item.i18nKey}>{item.label}</a></li>
           ))}
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4 class="footer-col-title">Social</h4>
+        <h4 class="footer-col-title" data-i18n="footer.social.label">Social</h4>
         <ul>
           <li>
             <a href={social.instagram} target="_blank" rel="noopener">
@@ -66,7 +66,7 @@ const year = new Date().getFullYear();
     {/* Meta */}
     <div class="footer-meta">
       <p>© {year} {brand.name}</p>
-      <p>{brand.city} · Spain</p>
+      <p data-i18n="footer.location">{brand.city} · Spain</p>
     </div>
   </div>
 </footer>

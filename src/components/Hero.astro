@@ -38,8 +38,8 @@ import { brand, social, heroServiceList, heroCta } from "../config";
         </div>
 
         <ul class="hero-services">
-          {heroServiceList.map((s) => (
-            <li class="hero-service">{s}</li>
+          {heroServiceList.map((s, i) => (
+            <li class="hero-service" data-i18n={`hero.services.${i}`}>{s}</li>
           ))}
         </ul>
       </div>
@@ -55,12 +55,12 @@ import { brand, social, heroServiceList, heroCta } from "../config";
       {/* Bottom row: tagline + CTA card */}
       <div class="hero-bottom" data-reveal style="--reveal-delay: 0.3s">
         <p class="hero-tagline">
-          <span class="hero-tagline-bright">{brand.tagline}</span>{" "}
-          <span class="hero-tagline-fade">{brand.description}</span>
+          <span class="hero-tagline-bright" data-i18n="hero.tagline">{brand.tagline}</span>{" "}
+          <span class="hero-tagline-fade" data-i18n="hero.description">{brand.description}</span>
         </p>
 
         <a href={social.calendly} target="_blank" rel="noopener" class="hero-cta-card">
-          <span class="hero-cta-card-label">{heroCta.label}</span>
+          <span class="hero-cta-card-label" data-i18n="hero.cta">{heroCta.label}</span>
           <span class="hero-cta-card-arrow" aria-hidden="true">→</span>
         </a>
       </div>

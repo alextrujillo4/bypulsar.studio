@@ -14,18 +14,18 @@ const features = [
   <div class="ds-ink-card cadence-card">
     <div class="ds-ink-card-inner cadence-grid">
       <div class="cadence-text">
-        <p class="cadence-eyebrow">our SaaS</p>
+        <p class="cadence-eyebrow" data-i18n="cadence.eyebrow">our SaaS</p>
 
         <h2 class="cadence-title">cadence.</h2>
 
-        <p class="cadence-lead">
+        <p class="cadence-lead" data-i18n="cadence.lead">
           Our SaaS for active communities. A professional site you run by chat —
           no CMS, no panels.
         </p>
 
         <ul class="cadence-features">
-          {features.map((f) => (
-            <li class="cadence-feature">{f}</li>
+          {features.map((f, i) => (
+            <li class="cadence-feature" data-i18n={`cadence.feature.${i}`}>{f}</li>
           ))}
         </ul>
 
@@ -35,7 +35,7 @@ const features = [
           rel="noopener"
           class="cadence-cta"
         >
-          Visit cadence.club
+          <span data-i18n="cadence.cta">Visit cadence.club</span>
           <span aria-hidden="true">↗</span>
         </a>
       </div>

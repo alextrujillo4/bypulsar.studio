@@ -7,11 +7,11 @@ import { team, social } from "../config";
     <div class="ds-white-card-inner studio-grid">
       {/* LEFT — eyebrow, title, mission, CTA */}
       <div class="studio-text">
-        <p class="studio-eyebrow">the team</p>
+        <p class="studio-eyebrow" data-i18n="studio.eyebrow">the team</p>
 
         <h2 class="studio-title">
-          <span class="studio-title-bright">two of us.</span>{" "}
-          <span class="studio-title-fade">one signal — engineering and creative direction tuned to the same frequency.</span>
+          <span class="studio-title-bright" data-i18n="studio.title.bright">two of us.</span>{" "}
+          <span class="studio-title-fade" data-i18n="studio.title.fade">one signal — engineering and creative direction tuned to the same frequency.</span>
         </h2>
 
         <div class="studio-plus-row" aria-hidden="true">
@@ -20,12 +20,12 @@ import { team, social } from "../config";
         </div>
 
         <div class="studio-mission">
-          <p class="studio-mission-title">Let's tune in</p>
-          <p class="studio-mission-body">
+          <p class="studio-mission-title" data-i18n="studio.mission.title">Let's tune in</p>
+          <p class="studio-mission-body" data-i18n="studio.mission.body">
             If your brand has signal, we'll amplify it. Small team, full bandwidth — no handoffs, no middle layer.
           </p>
           <a href={social.calendly} target="_blank" rel="noopener" class="studio-cta">
-            Book a call
+            <span data-i18n="studio.mission.cta">Book a call</span>
             <span class="studio-cta-dot" aria-hidden="true"></span>
           </a>
         </div>
@@ -37,8 +37,8 @@ import { team, social } from "../config";
           <article class="team-card">
             <span class="team-card-plus" aria-hidden="true">+</span>
             <div class="team-card-meta">
-              <p>{member.role}</p>
-              <p class="team-card-meta-sub">at pulsar</p>
+              <p data-i18n={`studio.team.${member.i18nKey}.role`}>{member.role}</p>
+              <p class="team-card-meta-sub" data-i18n="studio.team.atPulsar">at pulsar</p>
             </div>
             <div class="team-card-watermark" aria-hidden="true">
               {member.initials}

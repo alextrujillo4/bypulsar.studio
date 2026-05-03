@@ -1,5 +1,6 @@
 ---
 import { brand, nav, social } from "../config";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
 ---
 
 <header class="header" data-reveal style="--reveal-delay: 0.1s">
@@ -9,25 +10,28 @@ import { brand, nav, social } from "../config";
         {brand.shortName.toLowerCase()}
       </a>
 
-      {/* Desktop nav — distributed inline. Hidden on mobile (hamburger
-          handles it). */}
       <nav class="header-nav" aria-label="Sections">
         {nav.map((item) => (
-          <a href={item.href} class="header-nav-link">{item.label}</a>
+          <a href={item.href} class="header-nav-link" data-i18n={item.i18nKey}>
+            {item.label}
+          </a>
         ))}
       </nav>
 
-      <button
-        type="button"
-        class="header-burger"
-        aria-label="Open menu"
-        aria-controls="nav-overlay"
-        aria-expanded="false"
-        data-burger
-      >
-        <span></span>
-        <span></span>
-      </button>
+      <div class="header-tools">
+        <LanguageSwitcher />
+        <button
+          type="button"
+          class="header-burger"
+          aria-label="Open menu"
+          aria-controls="nav-overlay"
+          aria-expanded="false"
+          data-burger
+        >
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
   </div>
 </header>
@@ -51,10 +55,12 @@ import { brand, nav, social } from "../config";
 
   <nav class="nav-overlay-list" aria-label="Main navigation">
     <ul>
-      <li><a href="/" data-nav-close>home</a></li>
+      <li><a href="/" data-nav-close data-i18n="nav.home">Home</a></li>
       {nav.map((item) => (
         <li>
-          <a href={item.href} data-nav-close>{item.label.toLowerCase()}</a>
+          <a href={item.href} data-nav-close data-i18n={item.i18nKey}>
+            {item.label}
+          </a>
         </li>
       ))}
     </ul>
@@ -119,6 +125,12 @@ import { brand, nav, social } from "../config";
   .header-nav-link:hover {
     opacity: 1;
     color: #ffffff;
+  }
+
+  .header-tools {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
   }
 
   .header-burger {
@@ -201,6 +213,7 @@ import { brand, nav, social } from "../config";
     line-height: 1.1;
     color: #f5f5f5;
     text-decoration: none;
+    text-transform: lowercase;
     transition: color 0.2s ease;
   }
 

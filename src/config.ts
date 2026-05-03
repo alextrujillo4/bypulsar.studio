@@ -14,6 +14,8 @@ export const brand = {
 } as const;
 
 export type TeamMember = {
+  /** Stable slug used to build i18n keys: studio.team.<key>.role / .bio */
+  i18nKey: string;
   name: string;
   role: string;
   bio: string;
@@ -22,12 +24,14 @@ export type TeamMember = {
 
 export const team: TeamMember[] = [
   {
+    i18nKey: "alex",
     name: "Alexandro Trujillo",
     role: "Engineering",
     bio: "8 years building in Flutter and mobile. Architecture, apps and SaaS platforms.",
     initials: "AT",
   },
   {
+    i18nKey: "ela",
     name: "Ela Reyna",
     role: "Creative direction",
     bio: "Branding, visual identity and content. Tunes the signal.",
@@ -37,6 +41,8 @@ export const team: TeamMember[] = [
 
 export type Service = {
   num: string;
+  /** Stable slug used to build i18n keys: services.<key>.title / .lead / .cta */
+  i18nKey: string;
   title: string;
   lead: string;
   categories: string[];
@@ -56,6 +62,7 @@ export type Service = {
 export const services: Service[] = [
   {
     num: "001",
+    i18nKey: "cadence",
     title: "Cadence",
     lead:
       "Our SaaS for active communities. A professional site your team runs by chat — no CMS, no admin panels, no admin training. Multi-tenant, with events, gallery, store and Cadence AI built in. The flagship product everything else plugs into.",
@@ -65,6 +72,7 @@ export const services: Service[] = [
   },
   {
     num: "002",
+    i18nKey: "brand",
     title: "Brand identity",
     lead:
       "A complete visual identity your members can spot from across the floor — logo, palette, typography, brand manual, applications across digital and print. We start with discovery (what makes your space yours), build the system, and ship a manual you can hand to anyone. Designed to scale: works on a flyer, a Story, a t-shirt or a competition wall.",
@@ -72,6 +80,7 @@ export const services: Service[] = [
   },
   {
     num: "003",
+    i18nKey: "web",
     title: "Website",
     lead:
       "Custom website design + development for your studio, club or community. Built for speed, SEO and real conversions — booking, story, programs, contact, all in one place. Astro or Next on the front, Sanity or your CMS of choice for content, deployed on Vercel or Firebase. Optimized for Core Web Vitals from launch, accessible by default, owned by you, no template lock-in.",
@@ -79,6 +88,7 @@ export const services: Service[] = [
   },
   {
     num: "004",
+    i18nKey: "app",
     title: "Mobile app",
     lead:
       "A real iOS and Android app in your community's hand in weeks, not months. Built on Flutter (one codebase, both stores) + Supabase (auth, database, storage, realtime). Bookings, training programs, member content, push notifications — focused MVP scope, shipped to TestFlight and Play Console in 14–28 days.",
@@ -86,6 +96,7 @@ export const services: Service[] = [
   },
   {
     num: "005",
+    i18nKey: "media",
     title: "Photo & video",
     lead:
       "Phone snaps amplified into pro-grade material that doesn't look stock. AI-enhanced photos for class menus and IG carousels, event identity kits people actually screenshot (poster + Stories templates + flyer + email banner), and promo videos that move — slideshow, kinetic-text or generative — sized for every channel. All on-brand, fast turnaround.",
@@ -93,6 +104,7 @@ export const services: Service[] = [
   },
   {
     num: "006",
+    i18nKey: "shop",
     title: "Online store",
     lead:
       "A Shopify store ready to sell your merch, class packs and event tickets — without a weekend lost to tech setup. We configure payments, set up your first 10 products, install a theme that matches your brand identity (or custom-build one), connect inventory and shipping, and hand it over with a 30-min walkthrough. From zero to first sale in days.",
@@ -116,10 +128,10 @@ export const cadence = {
 } as const;
 
 export const nav = [
-  { label: "Services", href: "#services" },
-  { label: "Cadence", href: "#cadence" },
-  { label: "Team", href: "#team" },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "#services", i18nKey: "nav.services" },
+  { label: "Cadence", href: "#cadence", i18nKey: "nav.cadence" },
+  { label: "Team", href: "#team", i18nKey: "nav.team" },
+  { label: "Contact", href: "#contact", i18nKey: "nav.contact" },
 ] as const;
 
 // Hero is now a clean dark surface with a moving blue cloud (Halo-style).
@@ -138,10 +150,10 @@ export const heroCta = {
   label: "Book a call",
 } as const;
 
-// IDs externos — placeholders. Mover a estable en ARCHITECTURE.md cuando sean reales.
+// IDs externos. GA4 set; Clarity still pending.
 export const tracking = {
-  // TODO: GA4 measurement ID (G-XXXXXXXX)
-  ga4Id: "",
+  // GA4 measurement ID for the bypulsar-studio Firebase project.
+  ga4Id: "G-NYHB395MKK",
   // TODO: Microsoft Clarity project ID
   clarityId: "",
 } as const;

@@ -1,9 +1,14 @@
 ---
 import "../styles/globals.css";
 import { brand, tracking } from "../config";
+import { dict, DEFAULT_LOCALE } from "../i18n/dict";
 import IntroOverlay from "../components/IntroOverlay.astro";
 import ConsentBanner from "../components/ConsentBanner.astro";
 import CursorGlow from "../components/CursorGlow.astro";
+
+// Inline the translations dict so the runtime script can read it
+// without an extra fetch.
+const dictJson = JSON.stringify(dict);
 
 interface Props {
   title?: string;
@@ -62,6 +67,66 @@ const canonical = new URL(Astro.url.pathname, brand.url).toString();
       } catch (_) {
         document.documentElement.classList.add("intro-skip");
       }
+    </script>
+
+    {/* i18n runtime — reads localStorage, swaps every [data-i18n] /
+        [data-i18n-html] / [data-i18n-attr-*] node when the language
+        changes. SSR ships EN; if the saved locale is non-EN, the
+        applyLocale() call after DOMContentLoaded swaps text. Exposes
+        window.__pulsarSetLocale(code) for the LanguageSwitcher. */}
+    <script is:inline define:vars={{ dictJson, defaultLocale: DEFAULT_LOCALE }}>
+      (function () {
+        const DICT = JSON.parse(dictJson);
+        const KEY = "pulsar.lang";
+
+        function getSaved() {
+          try {
+            const v = localStorage.getItem(KEY);
+            if (v && DICT[v]) return v;
+          } catch (_) {}
+          return defaultLocale;
+        }
+
+        function applyLocale(locale) {
+          const d = DICT[locale] || DICT[defaultLocale];
+          // Plain text translations
+          document.querySelectorAll("[data-i18n]").forEach((el) => {
+            const key = el.getAttribute("data-i18n");
+            if (key && d[key] !== undefined) el.textContent = d[key];
+          });
+          // HTML translations (preserves inline markup like <span>)
+          document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+            const key = el.getAttribute("data-i18n-html");
+            if (key && d[key] !== undefined) el.innerHTML = d[key];
+          });
+          // Attribute translations: data-i18n-attr-{name}="key"
+          document.querySelectorAll("*").forEach((el) => {
+            for (const attr of Array.from(el.attributes)) {
+              if (!attr.name.startsWith("data-i18n-attr-")) continue;
+              const name = attr.name.slice("data-i18n-attr-".length);
+              const key = attr.value;
+              if (d[key] !== undefined) el.setAttribute(name, d[key]);
+            }
+          });
+          document.documentElement.lang = locale;
+          try { localStorage.setItem(KEY, locale); } catch (_) {}
+          document.dispatchEvent(
+            new CustomEvent("pulsar:locale-changed", { detail: { locale } })
+          );
+        }
+
+        // Public API for LanguageSwitcher
+        window.__pulsarSetLocale = applyLocale;
+
+        const initial = getSaved();
+        // First pass: apply right after DOM is ready so we replace
+        // SSR text before the user sees a flicker.
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", () => applyLocale(initial));
+        } else {
+          applyLocale(initial);
+        }
+      })();
     </script>
   </head>
 

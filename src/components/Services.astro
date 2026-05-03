@@ -6,14 +6,14 @@ import { services, social } from "../config";
   <div class="ds-ink-card">
     <div class="ds-ink-card-inner">
       <header class="services-header">
-        <p class="services-eyebrow">What we ship</p>
+        <p class="services-eyebrow" data-i18n="services.eyebrow">What we ship</p>
 
         <div class="services-title-wrap">
           <h2 class="services-title">
-            <span>services.</span>
+            <span data-i18n="services.title">services.</span>
             <sup class="services-count">({services.length})</sup>
           </h2>
-          <p class="services-subtitle">
+          <p class="services-subtitle" data-i18n="services.subtitle">
             Mix what fits — each service stands on its own.
           </p>
         </div>
@@ -25,14 +25,20 @@ import { services, social } from "../config";
             <details class="service-item" open={i === 0}>
               <summary class="service-row">
                 <span class="service-num">({service.num})</span>
-                <span class="service-title">{service.title}</span>
+                <span class="service-title" data-i18n={`services.${service.i18nKey}.title`}>
+                  {service.title}
+                </span>
                 <span class="service-toggle" aria-hidden="true"></span>
               </summary>
 
               <div class="service-body">
-                <p class="service-desc">{service.lead}</p>
+                <p class="service-desc" data-i18n={`services.${service.i18nKey}.lead`}>
+                  {service.lead}
+                </p>
 
-                <p class="service-cats-label">Categories</p>
+                <p class="service-cats-label" data-i18n="services.categories.label">
+                  Categories
+                </p>
                 <ul class="service-cats">
                   {service.categories.slice(0, 4).map((c) => (
                     <li class="service-pill">{c}</li>
@@ -46,7 +52,9 @@ import { services, social } from "../config";
 
                 {service.internal && (
                   <a href={service.internal} class="service-internal-cta">
-                    {service.cta || "Learn more"}
+                    <span data-i18n={`services.${service.i18nKey}.cta`}>
+                      {service.cta || "Learn more"}
+                    </span>
                     <span aria-hidden="true">↓</span>
                   </a>
                 )}
@@ -58,7 +66,7 @@ import { services, social } from "../config";
                     rel="noopener"
                     class="service-external"
                   >
-                    Visit cadence.club
+                    <span data-i18n="services.external.cadence">Visit cadence.club</span>
                     <span aria-hidden="true">↗</span>
                   </a>
                 )}
@@ -74,6 +82,7 @@ import { services, social } from "../config";
           target="_blank"
           rel="noopener"
           class="services-cta-btn"
+          data-i18n="services.cta"
         >
           Get started
         </a>
