@@ -10,7 +10,7 @@ export const brand = {
   city: "Madrid",
   tagline: "Design and code for brands in motion.",
   description:
-    "One signal, two operators. Design and code for the clubs, gyms and communities that move — running, yoga, padel, outdoor.",
+    "One signal, two operators. Design and code for the clubs, gyms and communities that move.",
 } as const;
 
 export type TeamMember = {

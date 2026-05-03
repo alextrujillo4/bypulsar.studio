@@ -118,7 +118,7 @@ Construcción favorita para hablar del estudio sin separar al equipo:
 ### Brand
 
 - **Tagline:** "Design and code for brands in motion."
-- **Description:** "One signal, two operators. Design and code for the clubs, gyms and communities that move — running, yoga, padel, outdoor."
+- **Description:** "One signal, two operators. Design and code for the clubs, gyms and communities that move."
 
 ### Hero CTA
 
