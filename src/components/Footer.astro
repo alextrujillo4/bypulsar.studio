@@ -73,8 +73,10 @@ const year = new Date().getFullYear();
 
 <style>
   .footer {
-    background: #0a0a0a;
+    /* No background — let the body bg + cursor glow show through.
+       Footer is plain (no card) so the ambient light reaches it. */
     border-top: 1px solid #1f1f1f;
+    position: relative;
   }
 
   .footer-inner {

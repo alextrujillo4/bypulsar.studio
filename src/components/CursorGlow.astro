@@ -1,18 +1,22 @@
 ---
-// Body-wide cursor-following soft light. Sits at z-index -1 so cards
-// cover it (only visible where the body bg is exposed: Intro section,
-// Footer, gaps between cards).
+// Body-wide ambient light layer.
 //
-// Visual signature:
-//  - Hue locked to a cool range (200°–260° — blue → violet) so the
-//    glow never warms into yellow/orange and tints the bg cream.
-//  - Position lerped on mousemove (smooth follow)
-//  - Intensity boosts on cursor movement, decays when idle
-//  - Constant heartbeat pulse on the radius keeps it alive even
-//    when the cursor is still
+// Two effects, same stacking layer (z-index: -1, sits above body bg
+// but below content cards thanks to body's `isolation: isolate`):
+//
+//  1. CursorGlow — soft halo that follows the pointer with a heartbeat
+//     pulse. Hue locked to a cool 200°–260° arc (cyan→violet) so it
+//     never warms into cream territory. Visible only on devices with
+//     a hovering pointer (i.e. desktop).
+//
+//  2. ClickPulse — on every click/tap, spawn an ephemeral ripple at
+//     the touch point that expands and fades over 1 second. This is
+//     primarily for mobile (where there's no cursor to follow) but
+//     also fires on desktop clicks.
 ---
 
 <div id="cursor-glow" aria-hidden="true"></div>
+<div id="click-pulse-layer" aria-hidden="true"></div>
 
 <style>
   #cursor-glow {
@@ -45,8 +49,57 @@
     );
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  /* Hide the persistent cursor halo on touch-only devices — they
+     can't hover, so a stuck halo at last-touch position looks broken.
+     ClickPulse still works on touch. */
+  @media (hover: none) and (pointer: coarse) {
     #cursor-glow {
+      display: none;
+    }
+  }
+
+  /* Layer where ephemeral click pulses live. Same stacking depth
+     as cursor-glow so cards block them too. */
+  #click-pulse-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .click-pulse {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle,
+      hsla(230, 90%, 70%, 0.5) 0%,
+      hsla(230, 90%, 65%, 0.15) 35%,
+      transparent 70%
+    );
+    animation: click-pulse 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes click-pulse {
+    0% {
+      width: 80px;
+      height: 80px;
+      opacity: 1;
+    }
+    100% {
+      width: 720px;
+      height: 720px;
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #cursor-glow,
+    #click-pulse-layer {
       display: none;
     }
   }
@@ -56,16 +109,16 @@
   (function () {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const root = document.documentElement;
+    const pulseLayer = document.getElementById("click-pulse-layer");
 
+    /* ─── Cursor glow loop ───────────────────────────────────── */
     let tx = window.innerWidth / 2;
     let ty = window.innerHeight / 2;
-    let cx = tx;
-    let cy = ty;
-
-    let intensity = 0.6;       // 0..1, decays over time, boosted on move
+    let cx = tx, cy = ty;
+    let intensity = 0.6;
     let lastMove = Date.now() - 5000;
-    let huePhase = 0;          // drives a sin oscillation between 200 and 260
-    let phase = 0;             // heartbeat phase
+    let huePhase = 0;
+    let phase = 0;
 
     document.addEventListener("mousemove", (e) => {
       tx = e.clientX;
@@ -75,16 +128,12 @@
     });
 
     function loop() {
-      // Smooth position lerp
       cx += (tx - cx) * 0.08;
       cy += (ty - cy) * 0.08;
 
-      // Hue oscillates between 200 (cyan-ish) and 260 (violet) —
-      // never crosses into warm yellow/orange/red territory
       huePhase += 0.005;
       const hue = 230 + Math.sin(huePhase) * 30;
 
-      // Heartbeat — sin oscillation between 0 and 1, period ~3s
       phase += 0.018;
       const beat = (Math.sin(phase) + 1) * 0.5;
 
@@ -103,5 +152,23 @@
       requestAnimationFrame(loop);
     }
     loop();
+
+    /* ─── Click pulse ────────────────────────────────────────── */
+    function spawnPulse(x, y) {
+      if (!pulseLayer) return;
+      const el = document.createElement("span");
+      el.className = "click-pulse";
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+      pulseLayer.appendChild(el);
+      // Auto-remove after the animation completes (1s + small buffer)
+      window.setTimeout(() => el.remove(), 1100);
+    }
+
+    // pointerdown covers both mouse click + touch tap; primary button only.
+    document.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      spawnPulse(e.clientX, e.clientY);
+    });
   })();
 </script>
