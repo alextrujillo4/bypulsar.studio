@@ -133,13 +133,17 @@ Construcción favorita para hablar del estudio sin separar al equipo:
 
 ### Sections
 
-| Sección | Label | Title |
+| Sección | Label / Eyebrow | Title |
 |---|---|---|
-| Studio | `studio.` | "Two of us. One signal." (bright + fade variant) |
-| Services | `services.` | "what we do." |
-| Approach | `approach.` | "how we work." |
+| Hero | (wordmark) | `pulsar` + `studio` |
+| Intro | — | "We're Pulsar." (bright) + tagline (fade) |
+| Services | `+ what we do` · `services.` | "services. (5)" |
+| Cadence | `+ our SaaS` | "cadence." |
+| Team | `+ the team` | "two of us. one signal — engineering and creative direction tuned to the same frequency." |
 
 Contacto vive en el **footer** (no como sección propia). El footer mantiene el ancla `#contact` para que el nav siga funcionando.
+
+Approach (process steps) está retirado de v1 a petición del usuario. Si vuelve, el patrón es 4-step grid con steps `01..04`.
 
 ### Footer columns
 

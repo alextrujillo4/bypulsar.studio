@@ -43,6 +43,9 @@ export type Service = {
   external?: string;
 };
 
+// Services list — Cadence intentionally NOT here. It lives in its own
+// dedicated section (Cadence.astro) because it's a product we own, not
+// a service we deliver — different narrative weight.
 export const services: Service[] = [
   {
     num: "001",
@@ -74,26 +77,6 @@ export const services: Service[] = [
     lead: "A store ready to ship in days. Setup, payments, custom theme.",
     categories: ["Setup", "Products", "Payments", "Theme", "Migration"],
   },
-  {
-    num: "006",
-    title: "Cadence",
-    lead: "Our SaaS for active communities. A professional site you run by chat.",
-    categories: ["SaaS", "Multi-tenant", "Events", "Gallery", "Store", "AI chat"],
-    external: "https://cadence.club",
-  },
-];
-
-export type ApproachStep = {
-  step: string;
-  title: string;
-  desc: string;
-};
-
-export const approach: ApproachStep[] = [
-  { step: "01", title: "Discovery", desc: "30-min call. No pitch, just listening." },
-  { step: "02", title: "Proposal", desc: "One page, in 48 hours." },
-  { step: "03", title: "Build", desc: "14 days. We ship, you review." },
-  { step: "04", title: "Go live", desc: "Autonomous from day one. Monthly check-ins." },
 ];
 
 export const social = {
@@ -112,20 +95,14 @@ export const cadence = {
 } as const;
 
 export const nav = [
-  { label: "Studio", href: "#studio" },
   { label: "Services", href: "#services" },
-  { label: "Approach", href: "#approach" },
+  { label: "Cadence", href: "#cadence" },
+  { label: "Team", href: "#team" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
-// Imágenes Unsplash curadas — placeholders v1.
-// TODO: reemplazar por fotos propias / proyectos reales cuando estén disponibles.
-// Curado: foto wellness oscura + grano cinematográfico para encajar con hero monocromo.
-export const heroImage = {
-  src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=2400&q=80",
-  alt: "Wellness movement",
-  credit: "Unsplash",
-} as const;
+// Hero is now a clean dark surface with a moving blue cloud (Halo-style).
+// No photo for now — the cloud carries the visual weight.
 
 // Hero: lista de servicios destacados (subset condensado para no saturar)
 export const heroServiceList = [

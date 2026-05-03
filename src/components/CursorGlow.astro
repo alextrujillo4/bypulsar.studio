@@ -1,0 +1,57 @@
+---
+// Body-wide cursor-following soft light. Sits at z-index -1 so cards cover
+// it (you only see it where the body bg is exposed: Intro section, Footer,
+// gaps between cards). Hue cycles slowly for the "different colors" effect.
+---
+
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<style>
+  #cursor-glow {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      560px circle at var(--cg-x, 50%) var(--cg-y, 50%),
+      hsla(var(--cg-hue, 220), 80%, 70%, 0.07) 0%,
+      hsla(var(--cg-hue, 220), 80%, 70%, 0.025) 25%,
+      transparent 55%
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #cursor-glow {
+      display: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const root = document.documentElement;
+
+    let tx = window.innerWidth / 2;
+    let ty = window.innerHeight / 2;
+    let cx = tx;
+    let cy = ty;
+    let hue = 220; // base: soft blue
+
+    document.addEventListener("mousemove", (e) => {
+      tx = e.clientX;
+      ty = e.clientY;
+    });
+
+    function loop() {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      hue = (hue + 0.15) % 360;
+      root.style.setProperty("--cg-x", cx.toFixed(0) + "px");
+      root.style.setProperty("--cg-y", cy.toFixed(0) + "px");
+      root.style.setProperty("--cg-hue", hue.toFixed(0));
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+</script>

@@ -209,15 +209,19 @@ Patrón Fabrica: el contenido vive en una **rounded card** que flota sobre el bg
 **Patrón de ritmo de página (alternancia ink ↔ white card ↔ light bg):**
 
 ```
-Header        (sticky, translucent light, dark text)         ← light bg
-Hero          (ds-section-card-wrap > rounded ink + foto)    ← INK card
-Studio        (ds-section-card-wrap > ds-white-card)         ← WHITE card
+Header        (sticky, translucent dark, light text)         ← dark bg
+Hero          (ds-section-card-wrap > rounded ink + cloud)   ← INK card + blue cloud
+Intro         (no card — body shows through)                 ← dark bg + watermark
 Services      (ds-section-card-wrap > ds-ink-card)           ← INK card
-Approach      (ds-section, light bg)                         ← light bg (no card)
-Footer        (light bg, full width, big wordmark)           ← light bg + CTA
+Cadence       (ds-section-card-wrap > ds-ink-card)           ← INK card
+Team          (ds-section-card-wrap > ds-white-card)         ← WHITE card (moment of light)
+Footer        (no card — body shows through)                 ← dark bg + huge wordmark + CTA
 ```
 
-Contacto NO tiene sección propia — vive en la primera columna del footer (email + Discovery call CTA pill). El footer mantiene `id="contact"` para que el ancla del nav (`#contact`) siga funcionando.
+**Reglas:**
+- Las **cards** (ink o white) son bloques destacados de contenido que SE TAPAN entre sí — el cursor glow no asoma a través.
+- Las **secciones planas** (Intro, Footer) no tienen card → el body bg dark queda visible y el cursor glow ilumina la zona.
+- `id="contact"` vive en la primera columna del footer para que el ancla del nav siga funcionando.
 
 **Reglas:**
 - Las **cards** (ink o white) son bloques destacados de contenido. Hero, Studio y Services las usan.

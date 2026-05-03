@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import { brand, tracking } from "../config";
 import IntroOverlay from "../components/IntroOverlay.astro";
 import ConsentBanner from "../components/ConsentBanner.astro";
+import CursorGlow from "../components/CursorGlow.astro";
 
 interface Props {
   title?: string;
@@ -62,6 +63,7 @@ const canonical = new URL(Astro.url.pathname, brand.url).toString();
 
   <body class="bg-bg text-fg font-sans selection:bg-fg selection:text-bg">
     <IntroOverlay />
+    <CursorGlow />
     <slot />
     <ConsentBanner />
 

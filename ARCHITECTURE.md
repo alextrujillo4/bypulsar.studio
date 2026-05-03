@@ -126,17 +126,14 @@ En `src/config.ts → social`:
 - [ ] `instagram` — handle real
 - [x] `calendly` — usando `https://calendly.com/inercia/30min` temporalmente. **TODO**: migrar a un slug `pulsar`/`bypulsar` cuando esté disponible para no exponer "inercia" en la URL pública del booking.
 
-### Imágenes temporales (Unsplash)
+### Imágenes temporales
 
-v1 usa **Unsplash** para placeholders. URLs específicas (no `source.unsplash.com/random`, deprecated).
-
-- Áreas con Unsplash:
-  - Hero — foto wellness amplia (cuando se añada al diseño)
-  - Algunas cards de Services (opcional)
-- Áreas SIN Unsplash (riesgo de fake):
-  - Equipo (Alexandro + Ela): placeholder geométrico con iniciales hasta tener fotos reales
-- [ ] Reemplazar por fotos propias / fotos de proyectos cuando estén
-- [ ] `public/og-image.png` 1200×630 — sin imagen OG aún, fallback al título
+- Hero ya no lleva foto: usa un **blue cloud** (radial gradients + blur) + cursor parallax. Halo-style.
+- Equipo (team cards en sección Team): placeholder con iniciales sobre gradient oscuro hasta tener fotos reales.
+- Cadence section: bloque visual con la "C" gigante + frequency line. Sustituible por screenshot real cuando exista.
+- [ ] Foto del equipo (cuando estén disponibles)
+- [ ] Screenshot real de Cadence
+- [ ] `public/og-image.png` 1200×630 (sin OG image todavía)
 
 ### Funcionalidad diferida (no en v1, planificada)
 
